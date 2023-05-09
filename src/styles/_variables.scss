@@ -1,0 +1,15 @@
+// global variables
+
+@font-face {
+    font-family: 'nautilus';
+    src: url('./primary-font/nautiluspompilius.woff2') format('woff2'),
+         url('./primary-font/nautiluspompilius.woff') format('woff'),
+         url('./primary-font/nautiluspompilius.ttf') format('truetype'),
+}
+
+:root {
+    --ff-primary: nautilus;
+
+    --fs-primary: 18pt;
+    --fs-regular: 14pt;
+}

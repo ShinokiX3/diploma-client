@@ -1,0 +1,88 @@
+@import './variables';
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+
+	p,
+	h1,
+	h2,
+	h3 {
+		margin: 0;
+		padding: 0;
+	}
+}
+
+.ju-al-center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.ant-carousel .slick-prev,
+.ant-carousel .slick-prev:hover,
+.ant-carousel .slick-prev:focus {
+	font-size: inherit;
+	top: 45%;
+	left: 10px;
+	z-index: 2;
+	svg {
+		width: 23px;
+		height: 23px;
+		transition: background-color 0.2s ease;
+		border-radius: 50%;
+		padding: 5px;
+		background-color: #f9f9f9;
+		&:hover {
+			background-color: #e6e6e6;
+		}
+	}
+	color: black;
+}
+
+.ant-carousel .slick-next,
+.ant-carousel .slick-next:hover,
+.ant-carousel .slick-next:focus {
+	font-size: inherit;
+	top: 45%;
+	right: 10px;
+	z-index: 2;
+	svg {
+		width: 23px;
+		height: 23px;
+		transition: background-color 0.2s ease;
+		border-radius: 50%;
+		padding: 5px;
+		background-color: #f9f9f9;
+		&:hover {
+			background-color: #e6e6e6;
+		}
+	}
+	color: black;
+}
+
+.ant-card-actions {
+	align-items: center;
+}
+
+.ant-drawer-title {
+	font-size: 16pt !important;
+}
+
+.disabled {
+	pointer-events: none;
+	cursor: default;
+	text-decoration: none;
+	opacity: 0.2 !important;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+	top: 25% !important;
+}
+.swiper-button-next {
+	margin-right: 17px;
+}
