@@ -10,7 +10,7 @@ const Order = () => {
 
 	return (
 		<Wrapper>
-			<p style={{ fontSize: '16pt' }}>Order:</p>
+			<p style={{ fontSize: '16pt' }}>Замовлення:</p>
 			{/* TODO: Create special component for this */}
 			{/* Rewrite to grid */}
 			{items &&
@@ -52,24 +52,24 @@ const Order = () => {
 							</div>
 							<div>
 								<div>
-									<p style={{ color: 'grey', marginBottom: '5px' }}>Price</p>
+									<p style={{ color: 'grey', marginBottom: '5px' }}>Ціна</p>
 									<div>
 										{item.rrp ? <del>{item.rrp.raw}</del> : null}
 										<p style={{ fontSize: '12pt', fontWeight: 'bold' }}>
-											{'$' + item?.price?.value || 'Sold'}
+											{item?.price?.value + ' ₴' || 'Sold'}
 										</p>
 									</div>
 								</div>
 							</div>
 							<div>
-								<p style={{ color: 'grey', marginBottom: '5px' }}>Quantity</p>
+								<p style={{ color: 'grey', marginBottom: '5px' }}>Кількість</p>
 								<p>{item.quantity}</p>
 							</div>
 							<div>
-								<p style={{ color: 'grey', marginBottom: '5px' }}>Total</p>
+								<p style={{ color: 'grey', marginBottom: '5px' }}>Всього</p>
 								<p>
 									{item?.price?.value ? (
-										'$' + item.price.value * item.quantity
+										item.price.value * item.quantity + ' ₴'
 									) : (
 										<></>
 									)}

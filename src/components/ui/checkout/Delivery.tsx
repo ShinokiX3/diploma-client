@@ -29,7 +29,7 @@ export const Item = styled.div`
 const Delivery = () => {
 	return (
 		<Wrapper>
-			<p style={{ fontSize: '16pt' }}>Delivery:</p>
+			<p style={{ fontSize: '16pt' }}>Доставка:</p>
 			<div>
 				<City />
 				<Type />

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { IAmazonCategory } from '@/types/categories.interface';
-import { AmazonCategory } from '@/services/Amazon/AmazonCategory';
+import { ICategory } from '@/types/categories.interface';
 import { Drawer } from 'antd';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { useActions } from '@/hooks/useActions';
 import styled from 'styled-components';
 import { RightOutlined } from '@ant-design/icons';
+import { Line } from '../common/Line';
 
 // TODO: bring into global scss variables
 
@@ -15,9 +15,11 @@ const DrawLinkWrapper = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	width: 100%;
+	width: 95%;
 	border-radius: 0.2rem;
-	padding: 7px;
+	padding: 10px;
+	padding-right: 0px;
+	/* border-bottom: 1px solid lightgray; */
 	transition: background-color 0.2s ease;
 
 	a {
@@ -25,23 +27,33 @@ const DrawLinkWrapper = styled.div`
 	}
 
 	&:hover {
+		border-left: 2px solid red;
 		background-color: #f0f0f0;
 	}
 `;
 
 const DrawLink = styled.div`
-	/* padding: 5px; */
 	width: 100%;
 	font-size: var(--fs-regular);
 `;
 
-const DrawContent = ({ categories, handleCategory, setShouldChildOpen }) => {
+interface IDrawContent {
+	categories: ICategory[];
+	handleCategory: Function;
+	setShouldChildOpen: Function;
+}
+
+const DrawContent: React.FC<IDrawContent> = ({
+	categories,
+	handleCategory,
+	setShouldChildOpen,
+}) => {
 	return (
 		<div>
 			{categories?.map((category) => (
-				<DrawLinkWrapper key={category.id}>
-					<Link href={`/category/${category.id}`} style={{ width: '100%' }}>
-						<DrawLink>{category.name}</DrawLink>
+				<DrawLinkWrapper key={category._id}>
+					<Link href={`/category/${category._id}`} style={{ width: '100%' }}>
+						<DrawLink>{category.title}</DrawLink>
 					</Link>
 				</DrawLinkWrapper>
 			))}
@@ -49,27 +61,24 @@ const DrawContent = ({ categories, handleCategory, setShouldChildOpen }) => {
 	);
 };
 
-const DrawCategory = ({ categories }) => {
-	const [details, setDetails] = useState<[IAmazonCategory[]] | []>([]);
+interface IDrawCategory {
+	categories: ICategory[];
+}
+
+const DrawCategory: React.FC<IDrawCategory> = ({ categories }) => {
+	const [details, setDetails] = useState<[ICategory[]] | []>([]);
 	const [shouldChildOpen, setShouldChildOpen] = useState(false);
 
 	const user = useTypedSelector((state) => state.user);
 	const { toggleUpperDrawer } = useActions();
 
-	const handleCategory = async (category: IAmazonCategory) => {
-		if (category && category.has_children === true) {
-			const response = await AmazonCategory.getCategory(category.id);
-
-			setDetails(response);
-			setShouldChildOpen(true);
-		}
-	};
+	const handleCategory = async (category: ICategory) => {};
 
 	return (
 		<>
 			<Drawer
 				headerStyle={{ fontSize: '18t' }}
-				title="Categories"
+				title="Меню"
 				placement="left"
 				closable={false}
 				onClose={() => toggleUpperDrawer(!user.upperDrawer)}
@@ -81,6 +90,34 @@ const DrawCategory = ({ categories }) => {
 					handleCategory={handleCategory}
 					setShouldChildOpen={setShouldChildOpen}
 				/>
+				<Line />
+				<DrawLinkWrapper>
+					<Link href={`/category/${''}`} style={{ width: '100%' }}>
+						<DrawLink>Доставка и оплата</DrawLink>
+					</Link>
+				</DrawLinkWrapper>
+				<DrawLinkWrapper>
+					<Link href={`/category/${''}`} style={{ width: '100%' }}>
+						<DrawLink>Партнерам</DrawLink>
+					</Link>
+				</DrawLinkWrapper>
+				<DrawLinkWrapper>
+					<Link href={`/category/${''}`} style={{ width: '100%' }}>
+						<DrawLink>Про нас</DrawLink>
+					</Link>
+				</DrawLinkWrapper>
+				<Line />
+				<DrawLinkWrapper>
+					<Link href={`/category/${''}`} style={{ width: '100%' }}>
+						<DrawLink>Apple</DrawLink>
+					</Link>
+					<Link href={`/category/${''}`} style={{ width: '100%' }}>
+						<DrawLink>Google</DrawLink>
+					</Link>
+					<Link href={`/category/${''}`} style={{ width: '100%' }}>
+						<DrawLink>Facebook</DrawLink>
+					</Link>
+				</DrawLinkWrapper>
 			</Drawer>
 			{/* <Drawer
 				title="Categories"

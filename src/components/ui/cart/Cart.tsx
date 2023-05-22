@@ -7,6 +7,7 @@ import { Button, Empty, InputNumber, Rate, Space } from 'antd';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { ShadowWrapper } from './ShadowWrapper';
+import { UserService } from '@/services/Server/SeverUser';
 
 // TODO: change to global variables
 
@@ -34,6 +35,7 @@ const Offer = styled.div`
 	font-weight: bold;
 	font-family: var(--ff-primary);
 	transition: color 0.3s ease-in;
+
 	&:hover {
 		color: red;
 	}
@@ -61,15 +63,21 @@ const Controls = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	padding-right: 12px;
 `;
 
 const Price = styled.div``;
 
 const Cart = () => {
 	const { items } = useTypedSelector((state) => state.cart);
-	const { clearCart, removeFromCart, changeQuantity } = useActions();
-
-	console.log(items);
+	const user = useTypedSelector((state) => state.user.user);
+	const {
+		clearCart,
+		removeFromCart,
+		changeQuantity,
+		pushFavourite,
+		removeFavourite,
+	} = useActions();
 
 	const handleClear = () => {
 		clearCart();
@@ -89,28 +97,42 @@ const Cart = () => {
 		return (
 			<ShadowWrapper>
 				<Header>
-					<h2>Cart</h2>
+					<h2>Корзина</h2>
 					<Button type="link" danger onClick={() => {}}>
-						Nothing to remove
+						Нічого видаляти
 					</Button>
 				</Header>
 				<Empty
-					description={<span>There is not any product in a cart</span>}
+					description={<span>Корзина пуста</span>}
 					style={{ margin: '15px 0px' }}
 				/>
 			</ShadowWrapper>
 		);
 	}
 
-	console.log(items);
+	const handleFavourites = async (productId: string) => {
+		if (JSON.stringify(user) === '{}') console.log('Error');
+
+		if (user.favourites?.some((item) => item === productId)) {
+			const response = await UserService.removeFavourite(productId);
+			if (response?.acknowledged) {
+				removeFavourite({ id: productId });
+			}
+		} else {
+			const response = await UserService.pushFavourite(productId);
+			if (response?.acknowledged) {
+				pushFavourite({ id: productId });
+			}
+		}
+	};
 
 	return (
 		<ShadowWrapper>
 			<Header>
-				<h2>Cart</h2>
+				<h2>Корзина</h2>
 				<Button type="link" danger onClick={handleClear}>
 					<DeleteOutlined />
-					Remove all
+					Видалити
 				</Button>
 			</Header>
 			{items &&
@@ -145,7 +167,7 @@ const Cart = () => {
 								<Price>
 									{item.rrp ? <del>{item.rrp.raw}</del> : null}
 									<p style={{ fontSize: '12pt', fontWeight: 'bold' }}>
-										{'$' + item?.price?.value || 'Sold'}
+										{item?.price?.value + ' ₴' || 'Sold'}
 									</p>
 								</Price>
 							</SubDetails>
@@ -161,13 +183,22 @@ const Cart = () => {
 									onClick={() => handleDelete(item.id)}
 									style={{ fontSize: '25px', cursor: 'pointer' }}
 								/>
-								<HeartOutlined style={{ fontSize: '25px' }} />
+								<HeartOutlined
+									onClick={() => handleFavourites(item.asin)}
+									style={{
+										cursor: 'pointer',
+										color: user?.favourites?.some((fav) => fav === item.asin)
+											? 'red'
+											: '',
+										fontSize: '25px',
+									}}
+								/>
 							</Controls>
 						</Details>
 					</Product>
 				))}
 			<Offer>
-				<Link href="/checkout">Place an order</Link>
+				<Link href="/checkout">Оформити</Link>
 			</Offer>
 		</ShadowWrapper>
 	);

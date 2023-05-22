@@ -8,6 +8,8 @@ import styled from 'styled-components';
 const Wrapper = styled.div`
 	display: grid;
 	grid-template-columns: 2fr 1fr;
+	justify-items: center;
+	width: 100%;
 
 	@media (max-width: 1100px) {
 		& {
@@ -50,8 +52,8 @@ const Checkout = () => {
 	return (
 		<Wrapper>
 			<ContentWrapper>
-				<Title>Checkout</Title>
-				<Personal setData={setPersonalInfo} />
+				<Title>Чек</Title>
+				<Personal />
 				<Order />
 				<Delivery />
 			</ContentWrapper>

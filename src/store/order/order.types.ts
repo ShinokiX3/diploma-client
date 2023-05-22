@@ -5,6 +5,8 @@ export interface ISelectedCity {
 
 export interface IOrderInitialState {
 	name: string;
+	lastname: string;
 	phone: string;
 	city: ISelectedCity;
+	deliveryDepartment: ISelectedCity;
 }

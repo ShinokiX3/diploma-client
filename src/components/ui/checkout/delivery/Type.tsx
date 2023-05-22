@@ -5,6 +5,7 @@ import { Item } from '../Delivery';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 import styled from 'styled-components';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
+import { useActions } from '@/hooks/useActions';
 
 const Wrapper = ({ deliveryWay, value, title, children }) => {
 	return (
@@ -23,7 +24,7 @@ const Wrapper = ({ deliveryWay, value, title, children }) => {
 				>
 					<div style={{ display: 'flex', justifyContent: 'space-between' }}>
 						<Radio value={value}>{title}</Radio>
-						<p>{`At carrier's rates`}</p>
+						<p>{`За тарифами перевізника`}</p>
 					</div>
 					<div>{children}</div>
 				</Item>
@@ -67,6 +68,8 @@ const NovaPoshta: React.FC<IDeliveryWay> = ({ city, deliveryWay }) => {
 		googleMapsApiKey: 'AIzaSyAyJQV-jP5bxTFg5AFE5MC0pQyZXGUoWcs',
 	});
 
+	const devDep = useTypedSelector((state) => state.order);
+
 	const selectedInfo = useMemo(
 		() => data.find((item) => item.Ref === selected),
 		[selected, data]
@@ -81,9 +84,7 @@ const NovaPoshta: React.FC<IDeliveryWay> = ({ city, deliveryWay }) => {
 		return result;
 	}, [selectedInfo]);
 
-	console.log(reception);
-
-	console.log(city);
+	const { setDeliveryDepartment } = useActions();
 
 	useEffect(() => {
 		(async () => {
@@ -92,6 +93,15 @@ const NovaPoshta: React.FC<IDeliveryWay> = ({ city, deliveryWay }) => {
 			console.log(response);
 		})();
 	}, [city]);
+
+	useEffect(() => {
+		if (selectedInfo !== undefined) {
+			setDeliveryDepartment({
+				title: selectedInfo.Description,
+				ref: selectedInfo.Ref,
+			});
+		}
+	}, [selectedInfo]);
 
 	const handleChange = (
 		value: string,
@@ -104,9 +114,9 @@ const NovaPoshta: React.FC<IDeliveryWay> = ({ city, deliveryWay }) => {
 	};
 
 	return (
-		<Wrapper deliveryWay={deliveryWay} value={1} title="Nova Poshta">
+		<Wrapper deliveryWay={deliveryWay} value={1} title="Нова Пошта">
 			<Select
-				defaultValue="Choose the right department"
+				defaultValue="Оберіть відділення..."
 				style={{ width: '100%' }}
 				onChange={handleChange}
 				// TODO: type all
@@ -124,13 +134,13 @@ const NovaPoshta: React.FC<IDeliveryWay> = ({ city, deliveryWay }) => {
 						</ReceptionItem>
 					))}
 				</ReceptionsWrapper>
-				<div>
+				{/* <div>
 					<GoogleMap
 						zoom={10}
 						center={{ lat: 44, lng: -80 }}
 						mapContainerStyle={{ width: '300px', height: '300px' }}
 					/>
-				</div>
+				</div> */}
 			</DepartmentDetails>
 		</Wrapper>
 	);
@@ -138,8 +148,8 @@ const NovaPoshta: React.FC<IDeliveryWay> = ({ city, deliveryWay }) => {
 
 const UkrPoshta: React.FC<IDeliveryWay> = ({ city, deliveryWay }) => {
 	return (
-		<Wrapper deliveryWay={deliveryWay} value={2} title="Ukr Poshta">
-			Ukrposhta
+		<Wrapper deliveryWay={deliveryWay} value={2} title="Укрпошта">
+			Укрпошта
 		</Wrapper>
 	);
 };

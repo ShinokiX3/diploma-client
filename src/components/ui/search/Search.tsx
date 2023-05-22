@@ -1,10 +1,10 @@
 import { useDebounce } from '@/hooks/useDebounce';
-import { AmazonProduct } from '@/services/Amazon/AmazonProduct';
 import { Empty, TreeSelect } from 'antd';
 import React, { useEffect, useState } from 'react';
 import Spinner from '../common/Spinner';
 import styled from 'styled-components';
 import Link from 'next/link';
+import { ProductService } from '@/services/Server/ServerProduct';
 
 interface ISearchProduct {
 	asin: string;
@@ -72,18 +72,19 @@ const Search = ({ styles }: { styles?: Object }) => {
 		(async () => {
 			if (debouncedValue) {
 				setLoading(true);
-				const response = await AmazonProduct.getProductsByTerm(debouncedValue);
+				const response =
+					(await ProductService.getProductsByTerm({
+						term: debouncedValue,
+					})) || [];
 
-				const products = response.search_results.map(
-					(item: ISearchProduct, index: number) => {
-						return {
-							asin: item.asin,
-							pId: index,
-							value: item.title,
-							title: item.title,
-						};
-					}
-				);
+				const products = response?.map((item: any, index: number) => {
+					return {
+						asin: item._id,
+						pId: index,
+						value: item.title,
+						title: item.title,
+					};
+				});
 
 				if (products.length === 0) setSearchResults([]);
 				else setSearchResults(products);

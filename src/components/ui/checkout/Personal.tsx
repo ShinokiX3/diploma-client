@@ -1,25 +1,32 @@
+import { useActions } from '@/hooks/useActions';
 import { Input, Space } from 'antd';
 import React, { useState } from 'react';
 
-const Personal = ({ setData }) => {
+const Personal = () => {
+	const { setName, setLastname, setPhone } = useActions();
 
-    const handleInput = (e, type: string) => {
-        if (e.target) {
-
-        }
-        setData(prev => ({...prev, type: e.target.value}))
-    }
-
-    return (
-        <div style={{display: 'flex', gap: '10px', flexDirection: 'column'}}>
-            <p style={{fontSize: '16pt'}}>Your personal information:</p>
-            <div style={{display: 'flex', gap: '10px'}}>
-                <Input placeholder="First name..." allowClear onChange={handleInput} />
-                <Input placeholder="Last name..." allowClear onChange={handleInput} />
-            </div>
-            <Input placeholder="Phone number..." allowClear onChange={handleInput} />
-        </div>
-    );
+	return (
+		<div style={{ display: 'flex', gap: '10px', flexDirection: 'column' }}>
+			<p style={{ fontSize: '16pt' }}>Ваша персональна інформація:</p>
+			<div style={{ display: 'flex', gap: '10px' }}>
+				<Input
+					placeholder="Ім'я..."
+					allowClear
+					onChange={(e) => setName({ name: e.target.value })}
+				/>
+				<Input
+					placeholder="Прізвище..."
+					allowClear
+					onChange={(e) => setLastname({ lastname: e.target.value })}
+				/>
+			</div>
+			<Input
+				placeholder="Номер телефона..."
+				allowClear
+				onChange={(e) => setPhone({ phone: e.target.value })}
+			/>
+		</div>
+	);
 };
 
 export default Personal;

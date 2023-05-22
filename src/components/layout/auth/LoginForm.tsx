@@ -31,6 +31,7 @@ const LoginForm: React.FC<ILoginForm> = ({ children }) => {
 
 				if (resp?.token) {
 					setStatus('success');
+					localStorage.setItem('token', resp.token);
 					login({ token: resp.token, user: resp.user[0] });
 				} else setStatus('error');
 

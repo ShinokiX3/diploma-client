@@ -14,6 +14,11 @@ const Wrapper = styled.div`
 	width: 100vw;
 	overflow: hidden;
 	margin-top: 20px;
+	.swiper-slide {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 `;
 
 const Promo = () => {
@@ -34,7 +39,12 @@ const Promo = () => {
 						<Image
 							width={0}
 							height={0}
-							style={{ width: '100%', height: 'auto' }}
+							style={{
+								width: '70%',
+								height: 'auto',
+								maxHeight: '300px',
+								objectFit: 'cover',
+							}}
 							alt="promo"
 							loader={() => item.src}
 							src={item.src}

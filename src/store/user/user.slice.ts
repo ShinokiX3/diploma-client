@@ -23,6 +23,16 @@ export const userSlice = createSlice({
 			state.user = {};
 		},
 
+		pushFavourite: (state, action: PayloadAction<{ id: string }>) => {
+			state.user.favourites = [...state.user.favourites, action.payload.id];
+		},
+
+		removeFavourite: (state, action: PayloadAction<{ id: string }>) => {
+			state.user.favourites = state.user.favourites.filter(
+				(item) => item !== action.payload.id
+			);
+		},
+
 		toggleUpperDrawer: (state, action: PayloadAction<boolean>) => {
 			state.upperDrawer = action.payload;
 		},

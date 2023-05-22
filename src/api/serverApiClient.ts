@@ -1,16 +1,16 @@
 import axios from 'axios';
 
-export const serverApi = axios.create({
+export const serverApiClient = axios.create({
 	baseURL: 'http://localhost:3000',
 	headers: {
 		'Content-Type': 'application/json',
 	},
 });
 
-serverApi.interceptors.request.use(
+serverApiClient.interceptors.request.use(
 	(config) => {
 		config.headers = {
-			authorization: `Bearer ${''}`,
+			authorization: `Bearer ${localStorage.getItem('token')}`,
 		};
 
 		return config;
@@ -18,10 +18,10 @@ serverApi.interceptors.request.use(
 	(error) => {}
 );
 
-serverApi.interceptors.response.use(
+serverApiClient.interceptors.response.use(
 	(config) => {
 		config.headers = {
-			authorization: `Bearer ${''}`,
+			authorization: `Bearer ${localStorage.getItem('token')}`,
 		};
 
 		return config;

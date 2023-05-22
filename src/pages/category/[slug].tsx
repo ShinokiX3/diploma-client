@@ -2,6 +2,9 @@ import MetaLayout from '@/components/layout/MetaLayout';
 import Category from '@/components/screen/category/Category';
 import { AmazonCategory } from '@/services/Amazon/AmazonCategory';
 import { AmazonProduct } from '@/services/Amazon/AmazonProduct';
+import { CategoryService } from '@/services/Server/ServerCategory';
+import { ProductService } from '@/services/Server/ServerProduct';
+import { ICategory } from '@/types/categories.interface';
 import { IAmazonProductsByCategory } from '@/types/products.interface';
 import { GetStaticProps, GetStaticPaths } from 'next';
 
@@ -9,10 +12,10 @@ import { GetStaticProps, GetStaticPaths } from 'next';
 // use getServerSideProps instead getStatic props by porpose included categories and issues in rendering
 
 export const getStaticPaths: GetStaticPaths = async () => {
-	const response = await AmazonCategory.getAllCategories();
+	const response = await CategoryService.getAllCategories();
 
-	const paths = response.map((category) => ({
-		params: { slug: category.id || '' },
+	const paths = response?.map((category: ICategory) => ({
+		params: { slug: category._id || '' },
 	}));
 
 	return {
@@ -24,7 +27,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async (context) => {
 	const slug = context.params?.slug as string;
 
-	const response = await AmazonProduct.getByCategoryId(slug ? slug : '', 1);
+	const response = await ProductService.getProductsByCategory({
+		id: slug ? slug : '',
+	});
+
+	console.log(slug);
 
 	if (!response) {
 		return {
@@ -38,13 +45,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 interface ICategoryPage {
-	data: IAmazonProductsByCategory;
+	data: any;
 	slug: string;
 }
 
 const CategoryPage: React.FC<ICategoryPage> = ({ data = [], slug }) => {
-	// TODO: change number slug value to string' category title
-
 	return (
 		<MetaLayout
 			title={`Category ${slug}`}

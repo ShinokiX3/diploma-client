@@ -43,14 +43,14 @@ const City = () => {
 			<Item onClick={() => setShouldShow(true)}>
 				<EnvironmentOutlined />
 				<div>
-					<p style={{ color: 'gray' }}>Your city:</p>
-					<p>{city.title || 'Choose you city'}</p>
+					<p style={{ color: 'gray' }}>Ваше місто:</p>
+					<p>{city.title || 'Оберіть місто'}</p>
 				</div>
 			</Item>
 			<Modal
 				title={
 					<div style={{ display: 'flex', alignItems: 'center' }}>
-						<h3>Choose your city</h3>
+						<h3>Оберіть ваше місто</h3>
 						{loading ? (
 							<Spin indicator={antIcon} style={{ marginLeft: '10px' }} />
 						) : (

@@ -1,3 +1,4 @@
+import { productSlice } from './../store/product/product.slice';
 import { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -12,6 +13,7 @@ const rootAction = {
 	...userSlice.actions,
 	...orderSlice.actions,
 	...categorySlice.actions,
+	...productSlice.actions,
 };
 
 export const useActions = () => {

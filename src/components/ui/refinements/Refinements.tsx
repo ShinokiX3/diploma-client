@@ -4,6 +4,7 @@ import { IRefinements } from '@/types/refinements.interface';
 import { Button, InputNumber, Rate, SelectProps, Slider } from 'antd';
 import { Select, Space } from 'antd';
 import styled from 'styled-components';
+import { useActions } from '@/hooks/useActions';
 
 interface ICRefinements {
 	data: IRefinements;
@@ -15,15 +16,19 @@ interface ItemProps {
 }
 
 const Wrapper = styled.div`
-	display: flex;
+	/* display: flex; */
 	position: sticky;
+	min-width: 230px;
 	top: 0;
-	padding-top: 10px;
-	height: auto;
-	width: 100%;
+	padding-top: 25px;
+	height: fit-content;
+	/* height: auto; */
+	/* width: 100%; */
 
 	@media (max-width: 700px) {
 		& {
+			min-width: auto;
+			height: auto;
 			position: inherit;
 			flex-direction: column;
 			padding-top: 0px;
@@ -39,12 +44,14 @@ const ItemsWrapper = styled.div<{ shouldShow: boolean }>`
 	display: flex;
 	flex-direction: column;
 	gap: 15px;
+	width: 100%;
 
 	@media (max-width: 700px) {
 		& {
 			overflow-y: hidden;
 			transition: height 0.6s ease-in-out;
 			height: ${(props) => (props.shouldShow ? '100%' : '0px')};
+			height: fit-content;
 		}
 	}
 `;
@@ -77,24 +84,52 @@ const titled = (title: string) => {
 	console.log(title.split('_').join(' '));
 };
 
+const RefiWrapper = styled.div`
+	padding: 10px;
+	width: 100%;
+	display: flex;
+	gap: 10px;
+	flex-direction: column;
+
+	p {
+		font-size: 12pt;
+		margin-bottom: 4px;
+	}
+
+	.ant-select {
+		width: 100%;
+	}
+
+	@media (max-width: 700px) {
+		& {
+			width: calc(100% - 20px);
+		}
+	}
+`;
+
+const attributesUA = {
+	brand: 'Бренд',
+	kind: 'Вид',
+	manufacturer: 'Виробник',
+	packing: 'Упаковка',
+	capacities: 'Ємність',
+	strengths: 'Міцність (Abv)',
+};
+
 const Refinements: React.FC<ICRefinements> = ({ data }) => {
 	const [shouldShow, setShouldShow] = useState(false);
 	const [value, setValue] = useState({
-		prime: [],
-		departments: [],
-		reviews: [],
-		price: [],
 		brand: [],
-		cookware_and_bakeware_material: [],
-		global_store: [],
-		condition: [],
-		new_arrivals: [],
-		international_shipping: [],
-		availability: [],
-		seller: [],
+		manufacturer: [],
+		capacities: [],
+		strengths: [],
+		kind: [],
+		packing: [],
 	});
 
 	const [rateValue, setRateValue] = useState('');
+
+	const { setFilter } = useActions();
 
 	const selectProps: SelectProps = {
 		mode: 'multiple',
@@ -110,100 +145,37 @@ const Refinements: React.FC<ICRefinements> = ({ data }) => {
 		}
 	};
 
+	const handleSelect = (key: string, selectValue: string[]) => {
+		setValue({ ...value, ...{ [key]: selectValue } });
+		setFilter({ type: key, value: selectValue });
+	};
+
 	return (
 		<Wrapper>
 			<ItemsWrapper shouldShow={shouldShow}>
-				{Object.entries(data).map(([id, items], index) => {
-					const title = items[0].refinement_display_name;
-
-					if (title === 'Reviews') {
-						return (
-							<>
-								<RefiP key={index}>{title}</RefiP>
-								<Rate
-									tooltips={items.map((item) => item.name).reverse()}
-									value={rateValue}
-									onChange={setRateValue}
-								/>
-							</>
-						);
-					}
-
-					if (title === 'Price') {
-						return (
-							<>
-								<RefiP key={index}>{title}</RefiP>
-								<Space>
-									<InputNumber
-										defaultValue={1000}
-										formatter={(value) =>
-											`$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-										}
-									/>
-									<InputNumber
-										defaultValue={1000}
-										formatter={(value) =>
-											`$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-										}
-									/>
-									<Button>Submit</Button>
-								</Space>
-								<Slider
-									range={{ draggableTrack: true }}
-									defaultValue={[20, 50]}
-								/>
-							</>
-						);
-					}
-
-					if (
-						title === 'Deals & Discounts' ||
-						title === 'New & Upcoming' ||
-						title === 'Condition'
-					) {
-						console.log(items);
-						return (
-							<>
-								<RefiP key={index}>{title}</RefiP>
-								<Space>
-									{items.map((item) => (
-										<Button
-											style={{ fontSize: '11pt' }}
-											type="text"
-											key={item.name}
-										>
-											{item.name}
-										</Button>
-									))}
-								</Space>
-							</>
-						);
-					}
-
-					if (
-						title === 'From Our Brands' ||
-						title === 'Amazon Global Store' ||
-						title === 'Prime'
-					) {
-						return <></>;
-					}
-
-					return (
-						<>
-							<RefiP key={index}>{title}</RefiP>
+				{/* <p>Фільтрація</p> */}
+				{data ? (
+					Object.keys(data).map((key: string) => (
+						<RefiWrapper key={key}>
+							<p>{attributesUA[key]}</p>
 							<Select
-								{...selectProps}
-								fieldNames={{ label: 'name', value: 'value' }}
-								options={data[id]}
-								value={value[id]}
-								onChange={(newValue: string[], option) => {
-									console.log(newValue, option);
-									setValue(newValue);
+								mode="multiple"
+								maxTagCount="responsive"
+								onChange={(selectValue: string[]) => {
+									handleSelect(key, selectValue);
 								}}
-							/>
-						</>
-					);
-				})}
+							>
+								{data[key].map((attribute) => (
+									<Select.Option key={attribute._id} value={attribute._id}>
+										{attribute.value}
+									</Select.Option>
+								))}
+							</Select>
+						</RefiWrapper>
+					))
+				) : (
+					<div>Loading...</div>
+				)}
 			</ItemsWrapper>
 			<ShowRefinements onClick={handleRefinements}>
 				Show Refinements

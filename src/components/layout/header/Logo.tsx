@@ -1,6 +1,7 @@
 import { useActions } from '@/hooks/useActions';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { MenuOutlined } from '@ant-design/icons';
+import Link from 'next/link';
 import styled from 'styled-components';
 
 const StyledLogo = styled.span`
@@ -29,7 +30,9 @@ const Logo = () => {
 				style={{ width: '20px', height: '20px' }}
 				onClick={() => toggleUpperDrawer(!user.upperDrawer)}
 			/>
-			<h3>Shinoki store</h3>
+			<Link href={`/`} style={{ textDecoration: 'none' }}>
+				<h3 style={{ color: 'black', paddingTop: '5px' }}>Оболонь Маркет</h3>
+			</Link>
 		</StyledLogo>
 	);
 };

@@ -3,13 +3,23 @@ import Description from '@/components/ui/product/description/Description';
 import View from '@/components/ui/product/view/View';
 import Review from '@/components/ui/review/Review';
 import VideoReviews from '@/components/ui/videoreviews/VideoReviews';
-import { IAmazonProductById } from '@/types/products.interface';
+import { useActions } from '@/hooks/useActions';
+import { useTypedSelector } from '@/hooks/useTypedSelector';
+import { UserService } from '@/services/Server/SeverUser';
+import {
+	IAttribute,
+	IAttributesResponse,
+	IProduct,
+} from '@/types/product.interface';
 import { Col, Collapse, Row } from 'antd';
-import React from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 
 interface ICProduct {
-	data: IAmazonProductById;
+	data: {
+		product: IProduct;
+		attributes: IAttributesResponse;
+	};
 }
 
 const contentStyle: React.CSSProperties = {
@@ -29,12 +39,14 @@ const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: 40px;
-	padding-top: 80px;
-	padding-left: 20px;
-	padding-right: 20px;
+
+	width: calc(100vw - 60px);
+
+	padding: 0px 20px;
+	padding-top: 32px;
 
 	@media (max-width: 700px) {
-		padding-top: 0px;
+		padding-top: 15px;
 	}
 `;
 
@@ -62,23 +74,12 @@ const Details = styled.div`
 `;
 
 const Product: React.FC<ICProduct> = ({ data }) => {
-	console.log(data);
-
-	const { product } = data;
-
-	const viewData = {
-		main_image: product?.main_image,
-		images: product?.images,
-		videos: product?.videos,
-		videos_flat: product?.videos_flat,
-	};
-
 	return (
 		// TODO: grid wrapper
 		<Wrapper>
 			<MainInfo>
-				<View data={viewData} />
-				<Description data={product} />
+				<View data={data} />
+				<Description data={data} />
 			</MainInfo>
 			<Line />
 			<Details>
@@ -114,14 +115,6 @@ const Product: React.FC<ICProduct> = ({ data }) => {
 					))}
 				</div>
 			</Details>
-			<Line />
-			<VideoReviews data={data} />
-			<Line />
-			<div>
-				{data.product?.top_reviews?.map((item) => (
-					<Review key={item.id} data={item} />
-				))}
-			</div>
 		</Wrapper>
 	);
 };

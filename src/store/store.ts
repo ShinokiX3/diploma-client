@@ -15,6 +15,7 @@ import { cartSlice } from './cart/cart.slice';
 import { userSlice } from './user/user.slice';
 import { orderSlice } from './order/order.slice';
 import { categorySlice } from './category/category.slice';
+import { productSlice } from './product/product.slice';
 
 const persistConfig = {
 	key: 'sinoki-store',
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
 	user: userSlice.reducer,
 	order: orderSlice.reducer,
 	category: categorySlice.reducer,
+	product: productSlice.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

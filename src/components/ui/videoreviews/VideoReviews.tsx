@@ -99,7 +99,6 @@ const VideoReviews = ({ data }) => {
 	const [activeVideo, setActiveVideo] = useState(0);
 	const videosRef = useRef([]);
 	const playerRef = React.useRef(null);
-	console.log(data);
 
 	useEffect(() => {
 		videosRef.current = videosRef.current.slice(
