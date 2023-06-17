@@ -2,6 +2,15 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { IProductInitialState } from './product.types';
 
+const filterInitial = {
+	brand: [],
+	capacities: [],
+	kind: [],
+	manufacturer: [],
+	packing: [],
+	strengths: [],
+};
+
 const initialState: IProductInitialState = {
 	sort: {},
 	filter: {
@@ -31,7 +40,7 @@ export const productSlice = createSlice({
 
 		reset: (state) => {
 			state.sort = {};
-			state.filter = {};
+			state.filter = filterInitial;
 		},
 	},
 });

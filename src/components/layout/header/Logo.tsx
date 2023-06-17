@@ -31,7 +31,7 @@ const Logo = () => {
 				onClick={() => toggleUpperDrawer(!user.upperDrawer)}
 			/>
 			<Link href={`/`} style={{ textDecoration: 'none' }}>
-				<h3 style={{ color: 'black', paddingTop: '5px' }}>Оболонь Маркет</h3>
+				<h3 style={{ color: 'black', paddingTop: '5px' }}>Маркет</h3>
 			</Link>
 		</StyledLogo>
 	);

@@ -41,9 +41,12 @@ export const ProductService = {
 
 	async getProductsByCategory({ id }: { id: string }) {
 		try {
-			const { data } = await serverApi.post<any>(`${PRODUCT}/category`, {
-				id: id,
-			});
+			const { data } = await serverApi.post<{ id: string }>(
+				`${PRODUCT}/category`,
+				{
+					id: id,
+				}
+			);
 
 			return data;
 		} catch (error) {}

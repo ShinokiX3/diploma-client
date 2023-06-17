@@ -1,4 +1,18 @@
-export interface IProduct {
+export interface IAttribute {
+	_id: string;
+	value: string;
+}
+
+export type IAttributesResponse = {
+	brand: IAttribute[];
+	capacity: IAttribute[];
+	strength: IAttribute[];
+	kind: IAttribute[];
+	manufacturer: IAttribute[];
+	packing: IAttribute[];
+};
+
+export type IProduct = {
 	_id: string;
 	code: string;
 	title: string;
@@ -10,18 +24,4 @@ export interface IProduct {
 	inStockQuantity: 5;
 	category: string[];
 	__v: number;
-}
-
-export interface IAttribute {
-	_id: string;
-	value: string;
-}
-
-export interface IAttributesResponse {
-	brand: IAttribute[];
-	capacity: IAttribute[];
-	strength: IAttribute[];
-	kind: IAttribute[];
-	manufacturer: IAttribute[];
-	packing: IAttribute[];
-}
+};

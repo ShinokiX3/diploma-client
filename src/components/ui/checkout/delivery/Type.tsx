@@ -46,6 +46,8 @@ type TReception = {
 const DepartmentDetails = styled.div`
 	display: flex;
 	padding: 10px;
+	justify-content: space-between;
+	align-items: center;
 `;
 
 const ReceptionsWrapper = styled.div``;
@@ -134,13 +136,13 @@ const NovaPoshta: React.FC<IDeliveryWay> = ({ city, deliveryWay }) => {
 						</ReceptionItem>
 					))}
 				</ReceptionsWrapper>
-				{/* <div>
+				<div>
 					<GoogleMap
 						zoom={10}
 						center={{ lat: 44, lng: -80 }}
-						mapContainerStyle={{ width: '300px', height: '300px' }}
+						mapContainerStyle={{ width: '250px', height: '250px' }}
 					/>
-				</div> */}
+				</div>
 			</DepartmentDetails>
 		</Wrapper>
 	);

@@ -1,11 +1,11 @@
-export interface IFilter {
+export type TFilter = {
 	brand: string[];
 	kind: string[];
 	capacities: string[];
 	strengths: string[];
 	manufacturer: string[];
 	packing: string[];
-}
+};
 
 export interface ISort {
 	type:
@@ -19,5 +19,5 @@ export interface ISort {
 
 export interface IProductInitialState {
 	sort: ISort | {};
-	filter: IFilter | {};
+	filter: TFilter;
 }

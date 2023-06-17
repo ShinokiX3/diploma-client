@@ -1,6 +1,3 @@
-import { Parallax, ParallaxLayer } from '@react-spring/parallax';
-import styles from './parallax.module.scss';
-
 import Promo from './Promo';
 import styled from 'styled-components';
 import Card from '@/components/ui/card/Card';
@@ -16,6 +13,17 @@ const Wrapper = styled.div`
 const ProductWrappper = styled.div`
 	display: flex;
 	gap: 10px;
+	flex-wrap: wrap;
+
+	@media (max-width: 785px) {
+		& {
+			align-items: center;
+			justify-content: center;
+			.ant-card:last-child {
+				display: none;
+			}
+		}
+	}
 `;
 
 const CategoryTitle = styled.p`
@@ -24,14 +32,14 @@ const CategoryTitle = styled.p`
 	border-bottom: 1px solid lightgray;
 `;
 
-const titles = {
-	0: 'Вино',
-	1: 'Слабоалкогольні напої',
-	2: 'Безалкогольні напої',
-	3: 'Пиво',
-	4: 'Сидр',
-	5: 'Мінеральна та питна вода',
-};
+const titles = [
+	'Вино',
+	'Слабоалкогольні напої',
+	'Безалкогольні напої',
+	'Пиво',
+	'Сидр',
+	'Мінеральна та питна вода',
+];
 
 const PreviewItem = ({
 	products,
@@ -44,7 +52,7 @@ const PreviewItem = ({
 		<>
 			<CategoryTitle>{titles[index]}</CategoryTitle>
 			<ProductWrappper>
-				{products.map((product: IProduct, index: number) => (
+				{products.map((product: IProduct) => (
 					<Card key={product.title} product={product} />
 				))}
 			</ProductWrappper>

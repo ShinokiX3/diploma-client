@@ -3,10 +3,19 @@ import Header from './header/Header';
 
 import DrawCategory from '../ui/drawer/DrawCategory';
 import { CategoryService } from '@/services/Server/ServerCategory';
+import styled from 'styled-components';
 
 interface ILayout {
 	children?: React.ReactNode;
 }
+
+const Main = styled.main`
+	width: 100%;
+`;
+
+const Section = styled.section`
+	display: flex;
+`;
 
 // TODO: change categories variable to object like {data, changeData, loading, error} or set 'em to redux storage
 
@@ -30,11 +39,11 @@ const Layout: React.FC<ILayout> = ({ children }) => {
 	// TODO: create recurcive function for fetching data
 
 	return (
-		<main style={{ width: '100%' }}>
+		<Main>
 			<Header />
 			<DrawCategory categories={categories} />
-			<section style={{ display: 'flex' }}>{children}</section>
-		</main>
+			<Section>{children}</Section>
+		</Main>
 	);
 };
 

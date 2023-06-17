@@ -52,9 +52,10 @@ const Wrapper = styled.div`
 
 const MainInfo = styled.div`
 	display: flex;
+	align-items: center;
 	gap: 40px;
 
-	@media (max-width: 700px) {
+	@media (max-width: 1000px) {
 		flex-direction: column;
 	}
 `;

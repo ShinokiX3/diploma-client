@@ -1,5 +1,4 @@
 import React from 'react';
-import { ICategoryResults } from '@/types/categoryResults.interface';
 import Image from 'next/image';
 
 import { HeartOutlined, ShoppingCartOutlined } from '@ant-design/icons';
@@ -16,17 +15,22 @@ interface ICard {
 	product: IProduct;
 }
 
-// TODO: rewrite card ui & logic
-
 const Message = styled.div<{ right: boolean }>`
 	position: absolute;
-	right: ${(props) => (props.right ? '10px' : 'initial')};
 	top: 10px;
+	right: ${(props) => (props.right ? '10px' : 'initial')};
 	background-color: ${(props) => (props.right ? 'lightblue' : 'red')};
 	color: white;
 	font-size: 10pt;
 	padding: 2px 8px;
 	border-radius: 7rem;
+`;
+
+const ImageWrapper = styled.div`
+	padding-top: 20px;
+	display: flex !important;
+	align-items: center;
+	justify-content: center;
 `;
 
 const Card: React.FC<ICard> = ({ product }) => {
@@ -64,23 +68,25 @@ const Card: React.FC<ICard> = ({ product }) => {
 	};
 
 	const handleCart = () => {
-		// const { asin, title, image, rating, price } = product;
-		const { _id, code, title, description, picture, cost, discount } = product;
+		const { _id, title, cost, discount } = product;
 
 		addToCart({
 			asin: _id,
 			title: title,
+			// TODO: To env
 			image: { link: `http://localhost:3000/${product.picture}` },
 			price: { value: discount ? cost - discount * cost : cost },
 			rrp: '',
 			quantity: 1,
 			rating: '',
 		});
+
 		success();
 	};
 
 	const handleFavourites = async () => {
 		if (JSON.stringify(user) === '{}') failruleFavourite();
+
 		if (user.favourites?.some((item) => item === product._id)) {
 			const response = await UserService.removeFavourite(product._id);
 			if (response?.acknowledged) {
@@ -100,20 +106,15 @@ const Card: React.FC<ICard> = ({ product }) => {
 		<>
 			{contextHolder}
 			<ACard
-				hoverable
 				style={{ width: '250px', position: 'relative', border: '0px' }}
+				hoverable
 				cover={
-					// TODO: make image wrapper adaptive
-					<div
-						style={{
-							paddingTop: '20px',
-							display: 'flex',
-							alignItems: 'center',
-							justifyContent: 'center',
-						}}
-					>
+					<ImageWrapper>
 						<Link
-							href={`/product/${product._id}`}
+							href={{
+								pathname: `/product/${product._id}`,
+								query: { title: product.title },
+							}}
 							style={{ textDecoration: 'none' }}
 						>
 							<Image
@@ -125,7 +126,7 @@ const Card: React.FC<ICard> = ({ product }) => {
 								src={`http://localhost:3000/${product.picture}`}
 							/>
 						</Link>
-					</div>
+					</ImageWrapper>
 				}
 				actions={[
 					<div key="price">
@@ -147,7 +148,10 @@ const Card: React.FC<ICard> = ({ product }) => {
 				]}
 			>
 				<Link
-					href={`/product/${product._id}`}
+					href={{
+						pathname: `/product/${product._id}`,
+						query: { title: product.title },
+					}}
 					style={{ textDecoration: 'none' }}
 				>
 					<Meta

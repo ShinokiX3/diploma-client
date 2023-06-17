@@ -5,8 +5,17 @@ import { Drawer } from 'antd';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { useActions } from '@/hooks/useActions';
 import styled from 'styled-components';
-import { RightOutlined } from '@ant-design/icons';
+import {
+	FacebookOutlined,
+	GoogleOutlined,
+	InstagramOutlined,
+	RightOutlined,
+	TwitterOutlined,
+	YoutubeOutlined,
+} from '@ant-design/icons';
 import { Line } from '../common/Line';
+import { imageIcons } from '../../../../design/icons/index';
+import Image from 'next/image';
 
 // TODO: bring into global scss variables
 
@@ -50,9 +59,21 @@ const DrawContent: React.FC<IDrawContent> = ({
 }) => {
 	return (
 		<div>
-			{categories?.map((category) => (
+			{categories?.map((category, index) => (
 				<DrawLinkWrapper key={category._id}>
-					<Link href={`/category/${category._id}`} style={{ width: '100%' }}>
+					<Link
+						href={{
+							pathname: `/category/${category._id}`,
+							query: { title: category.title },
+						}}
+						style={{ width: '100%', display: 'flex', gap: '12px' }}
+					>
+						<Image
+							width={25}
+							height={25}
+							src={imageIcons[index]}
+							alt="category-icon"
+						/>
 						<DrawLink>{category.title}</DrawLink>
 					</Link>
 				</DrawLinkWrapper>
@@ -108,32 +129,33 @@ const DrawCategory: React.FC<IDrawCategory> = ({ categories }) => {
 				</DrawLinkWrapper>
 				<Line />
 				<DrawLinkWrapper>
-					<Link href={`/category/${''}`} style={{ width: '100%' }}>
-						<DrawLink>Apple</DrawLink>
+					<Link href={`/category/${''}`} style={{ width: '50%' }}>
+						<DrawLink>
+							<GoogleOutlined />
+						</DrawLink>
 					</Link>
-					<Link href={`/category/${''}`} style={{ width: '100%' }}>
-						<DrawLink>Google</DrawLink>
+					<Link href={`/category/${''}`} style={{ width: '50%' }}>
+						<DrawLink>
+							<YoutubeOutlined />
+						</DrawLink>
 					</Link>
-					<Link href={`/category/${''}`} style={{ width: '100%' }}>
-						<DrawLink>Facebook</DrawLink>
+					<Link href={`/category/${''}`} style={{ width: '50%' }}>
+						<DrawLink>
+							<FacebookOutlined />
+						</DrawLink>
+					</Link>
+					<Link href={`/category/${''}`} style={{ width: '50%' }}>
+						<DrawLink>
+							<TwitterOutlined />
+						</DrawLink>
+					</Link>
+					<Link href={`/category/${''}`} style={{ width: '60px' }}>
+						<DrawLink>
+							<InstagramOutlined />
+						</DrawLink>
 					</Link>
 				</DrawLinkWrapper>
 			</Drawer>
-			{/* <Drawer
-				title="Categories"
-				placement="left"
-				width={380}
-				maskStyle={{ background: 'transparent' }}
-				closable={false}
-				onClose={() => setShouldChildOpen(!shouldChildOpen)}
-				open={shouldChildOpen}
-			>
-				<DrawContent
-					categories={details}
-					handleCategory={handleCategory}
-					setShouldChildOpen={setShouldChildOpen}
-				/>
-			</Drawer> */}
 		</>
 	);
 };

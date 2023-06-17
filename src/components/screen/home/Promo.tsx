@@ -11,7 +11,7 @@ import { Navigation } from 'swiper';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-	width: 100vw;
+	width: calc(100vw - 20px);
 	overflow: hidden;
 	margin-top: 20px;
 	.swiper-slide {
@@ -31,7 +31,7 @@ const Promo = () => {
 				slidesPerView={1}
 				onSlideChange={() => console.log('slide change')}
 				onSwiper={(swiper) => console.log(swiper)}
-				style={{ width: '100vw' }}
+				style={{ width: 'inherit' }}
 				className="mySwiper"
 			>
 				{promo.map((item) => (

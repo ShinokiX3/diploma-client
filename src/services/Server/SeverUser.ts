@@ -67,4 +67,17 @@ export const UserService = {
 			return data;
 		} catch (error) {}
 	},
+
+	// Liqpay
+
+	async getLiqpayData(obj: any) {
+		try {
+			const { data } = await serverApiClient.post<any>(
+				`${USER}/liqpay/data`,
+				obj
+			);
+
+			return data;
+		} catch (error) {}
+	},
 };

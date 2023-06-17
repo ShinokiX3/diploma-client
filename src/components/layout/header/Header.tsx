@@ -33,8 +33,6 @@ const Wrapper = styled.div`
 `;
 
 const Header = () => {
-	console.log(window.innerWidth);
-
 	return (
 		<Wrapper>
 			<StyledHeader>

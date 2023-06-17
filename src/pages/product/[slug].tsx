@@ -1,15 +1,9 @@
 import React from 'react';
 import MetaLayout from '@/components/layout/MetaLayout';
 import Product from '@/components/screen/product/Product';
-// import { AmazonProduct } from '@/services/Amazon/AmazonProduct';
-import { IAmazonProductById } from '@/types/products.interface';
 import { GetServerSideProps } from 'next';
 import { ProductService } from '@/services/Server/ServerProduct';
-import {
-	IAttribute,
-	IAttributesResponse,
-	IProduct,
-} from '@/types/product.interface';
+import { IAttributesResponse, IProduct } from '@/types/product.interface';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const slug = context.params?.slug as string;

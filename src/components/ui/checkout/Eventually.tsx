@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { ShadowWrapper } from '../cart/ShadowWrapper';
 import styled from 'styled-components';
 import { Line } from '../common/Line';
@@ -7,6 +7,7 @@ import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { UserService } from '@/services/Server/SeverUser';
 import { useActions } from '@/hooks/useActions';
 import Spinner from '../common/Spinner';
+import sha1 from 'js-sha1';
 
 import { useRouter } from 'next/navigation';
 
@@ -40,6 +41,10 @@ const Eventually = () => {
 	const items = useTypedSelector((state) => state.cart.items);
 	const order = useTypedSelector((state) => state.order);
 	const user = useTypedSelector((state) => state.user.user);
+	const [liqpay, setLiqpay] = useState({
+		data: '',
+		signature: '',
+	});
 
 	const router = useRouter();
 
@@ -73,11 +78,15 @@ const Eventually = () => {
 			products: products,
 		};
 
-		const response = await UserService.createOrder(data, { id: user._id });
+		const createdOrder = await UserService.createOrder(data, { id: user._id });
 
-		if (response) clearCart();
+		console.log(createdOrder);
+
+		if (createdOrder.order)
+			router.push(
+				`checkout/success?id=${createdOrder.order._id}&total=${createdOrder.order.total}`
+			);
 		setLoading(false);
-		router.push('checkout/success');
 	};
 
 	if (loading) {

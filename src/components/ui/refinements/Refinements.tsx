@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { IRefinements } from '@/types/refinements.interface';
-
-import { Button, InputNumber, Rate, SelectProps, Slider } from 'antd';
-import { Select, Space } from 'antd';
+import { Select } from 'antd';
 import styled from 'styled-components';
 import { useActions } from '@/hooks/useActions';
 
@@ -10,20 +8,12 @@ interface ICRefinements {
 	data: IRefinements;
 }
 
-interface ItemProps {
-	label: string;
-	value: string;
-}
-
 const Wrapper = styled.div`
-	/* display: flex; */
 	position: sticky;
 	min-width: 230px;
 	top: 0;
 	padding-top: 25px;
 	height: fit-content;
-	/* height: auto; */
-	/* width: 100%; */
 
 	@media (max-width: 700px) {
 		& {
@@ -36,10 +26,6 @@ const Wrapper = styled.div`
 	}
 `;
 
-const RefiP = styled.p`
-	font-size: 15pt;
-`;
-
 const ItemsWrapper = styled.div<{ shouldShow: boolean }>`
 	display: flex;
 	flex-direction: column;
@@ -50,8 +36,7 @@ const ItemsWrapper = styled.div<{ shouldShow: boolean }>`
 		& {
 			overflow-y: hidden;
 			transition: height 0.6s ease-in-out;
-			height: ${(props) => (props.shouldShow ? '100%' : '0px')};
-			height: fit-content;
+			height: ${(props) => (props.shouldShow ? 'calc(100% - 50px)' : '0px')};
 		}
 	}
 `;
@@ -78,12 +63,6 @@ const ShowRefinements = styled.div`
 	}
 `;
 
-// TODO: move to utis
-
-const titled = (title: string) => {
-	console.log(title.split('_').join(' '));
-};
-
 const RefiWrapper = styled.div`
 	padding: 10px;
 	width: 100%;
@@ -94,6 +73,7 @@ const RefiWrapper = styled.div`
 	p {
 		font-size: 12pt;
 		margin-bottom: 4px;
+		color: gray;
 	}
 
 	.ant-select {
@@ -127,16 +107,7 @@ const Refinements: React.FC<ICRefinements> = ({ data }) => {
 		packing: [],
 	});
 
-	const [rateValue, setRateValue] = useState('');
-
 	const { setFilter } = useActions();
-
-	const selectProps: SelectProps = {
-		mode: 'multiple',
-		style: { width: '100%' },
-		placeholder: 'Select Item...',
-		maxTagCount: 'responsive',
-	};
 
 	const handleRefinements = () => {
 		setShouldShow(!shouldShow);
@@ -153,7 +124,6 @@ const Refinements: React.FC<ICRefinements> = ({ data }) => {
 	return (
 		<Wrapper>
 			<ItemsWrapper shouldShow={shouldShow}>
-				{/* <p>Фільтрація</p> */}
 				{data ? (
 					Object.keys(data).map((key: string) => (
 						<RefiWrapper key={key}>
@@ -177,9 +147,7 @@ const Refinements: React.FC<ICRefinements> = ({ data }) => {
 					<div>Loading...</div>
 				)}
 			</ItemsWrapper>
-			<ShowRefinements onClick={handleRefinements}>
-				Show Refinements
-			</ShowRefinements>
+			<ShowRefinements onClick={handleRefinements}>Фільтрація</ShowRefinements>
 		</Wrapper>
 	);
 };
