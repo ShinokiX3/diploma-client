@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const serverApi = axios.create({
-	baseURL: 'http://localhost:3000',
+	baseURL: 'https://diploma-server.vercel.app/',
 	headers: {
 		'Content-Type': 'application/json',
 	},
