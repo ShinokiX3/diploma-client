@@ -6,6 +6,9 @@ import styled from 'styled-components';
 import Title from './Title';
 import { Empty, Image } from 'antd';
 import OrderLoader from '@/components/ui/order/OrderLoader';
+import { IUser } from '@/store/user/user.types';
+import { IOrderResponse } from '@/store/order/order.types';
+import { IAttributesResponse, IProduct } from '@/types/product.interface';
 
 const OrderWrapper = styled.div`
 	display: flex;
@@ -67,19 +70,21 @@ const orderStatus = [
 ];
 
 interface IOrders {
-	user: any;
+	user: IUser;
 }
 
 const Orders: React.FC<IOrders> = ({ user }) => {
-	const [orders, setOrders] = useState([]);
-	const [products, setProducts] = useState([]);
-	const [loading, setLoading] = useState(false);
+	const [orders, setOrders] = useState<IOrderResponse[]>([]);
+	const [products, setProducts] = useState<IProduct[]>([]);
+	const [loading, setLoading] = useState<boolean>(false);
 
 	useEffect(() => {
 		(async () => {
-			if (JSON.stringify(user) === '{}') return false;
+			if (user.name === '') return false;
 			setLoading(true);
+
 			const orders = await UserService.getUserOrders();
+			if (orders === undefined) return false;
 
 			const products = await Promise.all(
 				orders?.map(
@@ -139,7 +144,8 @@ const Orders: React.FC<IOrders> = ({ user }) => {
 						/>
 						<Message>
 							<p>
-								№{order._id.substring(0, 7)} від {order.date.split('T')[0]}
+								№{order._id.substring(0, 7)} від{' '}
+								{String(order.date).split('T')[0]}
 							</p>
 							<p>{order.status}</p>
 						</Message>

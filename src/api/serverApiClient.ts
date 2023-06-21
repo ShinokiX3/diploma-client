@@ -1,4 +1,8 @@
-import axios from 'axios';
+import axios, {
+	AxiosHeaders,
+	AxiosRequestHeaders,
+	InternalAxiosRequestConfig,
+} from 'axios';
 
 export const serverApiClient = axios.create({
 	baseURL: 'http://localhost:3000',
@@ -9,9 +13,11 @@ export const serverApiClient = axios.create({
 
 serverApiClient.interceptors.request.use(
 	(config) => {
-		config.headers = {
-			authorization: `Bearer ${localStorage.getItem('token')}`,
-		};
+		// config.headers = {
+		// 	authorization: `Bearer ${localStorage.getItem('token')}`,
+		// };
+
+		config.headers['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
 
 		return config;
 	},

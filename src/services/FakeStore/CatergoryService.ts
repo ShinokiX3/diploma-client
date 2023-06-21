@@ -1,22 +1,23 @@
-import { IProduct } from '@/types/product.interface'
-import { ICategories } from '@/types/categories.interface'
+import { IProduct } from '@/types/product.interface';
+// import { ICategories } from '@/types/categories.interface'
 
-import { axiosClassic } from '@/api/api'
+import { axiosClassic } from '@/api/api';
 
-const CATEGORIES = '/products/categories'
-const CATEGORY = '/products/category'
+const CATEGORIES = '/products/categories';
+const CATEGORY = '/products/category';
 
 export const CategoryService = {
 	async getAllCategories() {
-		const { data } = await axiosClassic.get<string[]>(CATEGORIES)
+		const { data } = await axiosClassic.get<string[]>(CATEGORIES);
 
-		return data
+		return data;
 	},
 
 	async getByCategory(categoryTitle: string) {
-		
-		const { data } = await axiosClassic.get<IProduct[]>(`${CATEGORY}/${categoryTitle}`)
+		const { data } = await axiosClassic.get<IProduct[]>(
+			`${CATEGORY}/${categoryTitle}`
+		);
 
-		return data
-	}
-}
+		return data;
+	},
+};

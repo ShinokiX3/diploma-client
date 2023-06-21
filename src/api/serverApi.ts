@@ -7,24 +7,24 @@ export const serverApi = axios.create({
 	},
 });
 
-serverApi.interceptors.request.use(
-	(config) => {
-		config.headers = {
-			authorization: `Bearer ${''}`,
-		};
+// serverApi.interceptors.request.use(
+// 	(config) => {
+// 		config.headers = {
+// 			authorization: `Bearer ${''}`,
+// 		};
 
-		return config;
-	},
-	(error) => {}
-);
+// 		return config;
+// 	},
+// 	(error) => {}
+// );
 
-serverApi.interceptors.response.use(
-	(config) => {
-		config.headers = {
-			authorization: `Bearer ${''}`,
-		};
+// serverApi.interceptors.response.use(
+// 	(config) => {
+// 		config.headers = {
+// 			authorization: `Bearer ${''}`,
+// 		};
 
-		return config;
-	},
-	(error) => {}
-);
+// 		return config;
+// 	},
+// 	(error) => {}
+// );

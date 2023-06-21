@@ -1,5 +1,5 @@
-import { serverApi } from '@/api/serverApi';
 import { serverApiClient } from '@/api/serverApiClient';
+import { IOrderResponse } from '@/store/order/order.types';
 
 const USER = '/users';
 
@@ -19,7 +19,9 @@ export const UserService = {
 
 	async getUserOrders() {
 		try {
-			const { data } = await serverApiClient.get<any>(`${USER}/order/user`);
+			const { data } = await serverApiClient.get<IOrderResponse[]>(
+				`${USER}/order/user`
+			);
 
 			return data;
 		} catch (error) {}

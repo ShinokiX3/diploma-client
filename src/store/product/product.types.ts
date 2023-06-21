@@ -1,3 +1,7 @@
+export interface IMap {
+	[key: string]: string[];
+}
+
 export type TFilter = {
 	brand: string[];
 	kind: string[];
@@ -5,7 +9,7 @@ export type TFilter = {
 	strengths: string[];
 	manufacturer: string[];
 	packing: string[];
-};
+} & IMap;
 
 export interface ISort {
 	type:

@@ -83,13 +83,11 @@ const Cart = () => {
 		clearCart();
 	};
 
-	const handleDelete = (id: number) => {
+	const handleDelete = (id: string) => {
 		removeFromCart({ id: id });
 	};
 
-	const handleQuantity = (id: number, quantity: number) => {
-		console.log(quantity);
-
+	const handleQuantity = (id: string, quantity: number | null) => {
 		changeQuantity({ asin: id, quantity });
 	};
 
@@ -111,7 +109,7 @@ const Cart = () => {
 	}
 
 	const handleFavourites = async (productId: string) => {
-		if (JSON.stringify(user) === '{}') console.log('Error');
+		if (user.name === '') console.log('Error');
 
 		if (user.favourites?.some((item) => item === productId)) {
 			const response = await UserService.removeFavourite(productId);
@@ -165,7 +163,7 @@ const Cart = () => {
 							</Link>
 							<SubDetails>
 								<Price>
-									{item.rrp ? <del>{item.rrp.raw}</del> : null}
+									{item.rrp ? <del>{item.rrp}</del> : null}
 									<p style={{ fontSize: '12pt', fontWeight: 'bold' }}>
 										{item?.price?.value + ' ₴' || 'Sold'}
 									</p>

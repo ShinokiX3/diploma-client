@@ -55,13 +55,9 @@ const Index = () => {
 
 	useEffect(() => {
 		clearCart();
-		const id = window?.location?.search
-			.match(/id=\w*/gi)[0]
-			.replace(/id=/gi, '');
-		const total = window?.location?.search
-			.match(/total=[\d.]*/gi)[0]
-			.replace(/total=/gi, '');
-
+		const s: string = window.location.search;
+		const id = s.match(/id=\w*/gi)![0].replace(/id=/gi, '');
+		const total = s.match(/total=[\d.]*/gi)![0].replace(/total=/gi, '');
 		hadleLiqpay(id, total);
 	}, [router]);
 

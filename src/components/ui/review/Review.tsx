@@ -3,12 +3,9 @@ import Image from 'next/image';
 import { Avatar, Button, Collapse, Rate } from 'antd';
 import {
 	CaretRightOutlined,
-	DislikeOutlined,
 	HeartOutlined,
-	LikeOutlined,
 	UserOutlined,
 } from '@ant-design/icons';
-import styled from 'styled-components';
 
 const { Panel } = Collapse;
 
@@ -19,7 +16,25 @@ const panelStyle = {
 	border: 'none',
 };
 
-const Header = ({ data }) => {
+export interface IReviewData {
+	title: string;
+	rating: number;
+	profile: {
+		name: string;
+		image: string;
+	};
+	date: {
+		raw: string;
+	};
+	images: [
+		{
+			link: string;
+		}
+	];
+	body: string;
+}
+
+const Header: React.FC<{ data: IReviewData }> = ({ data }) => {
 	return (
 		<div
 			style={{
@@ -72,7 +87,7 @@ const Header = ({ data }) => {
 	);
 };
 
-const Body = ({ data }) => {
+const Body: React.FC<{ data: IReviewData }> = ({ data }) => {
 	return (
 		<Collapse
 			bordered={false}
@@ -93,7 +108,7 @@ const Body = ({ data }) => {
 	);
 };
 
-const Images = ({ data }) => {
+const Images: React.FC<{ data: IReviewData }> = ({ data }) => {
 	return (
 		<div style={{ display: 'flex' }}>
 			{data?.images?.map((image, index) => (
@@ -111,7 +126,7 @@ const Images = ({ data }) => {
 	);
 };
 
-const Review = ({ data }) => {
+const Review: React.FC<{ data: IReviewData }> = ({ data }) => {
 	return (
 		<div style={{ display: 'grid', gap: '10px', marginBottom: '20px' }}>
 			<Header data={data} />

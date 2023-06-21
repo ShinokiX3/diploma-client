@@ -1,6 +1,6 @@
 export interface IUser {
 	email: string;
-	favourites: [];
+	favourites: Array<any>;
 	joindate: string;
 	name: string;
 	password: string;
@@ -13,5 +13,5 @@ export interface IUser {
 export interface IUserInitialState {
 	upperDrawer: boolean;
 	token: string;
-	user: IUser | {};
+	user: IUser;
 }

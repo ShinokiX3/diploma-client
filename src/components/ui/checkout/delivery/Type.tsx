@@ -6,8 +6,22 @@ import { useTypedSelector } from '@/hooks/useTypedSelector';
 import styled from 'styled-components';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 import { useActions } from '@/hooks/useActions';
+import { ISelectedCity } from '@/store/order/order.types';
+import { IAddress } from '@/types/novaposhta.interface';
 
-const Wrapper = ({ deliveryWay, value, title, children }) => {
+export interface IDeliveryWrapper {
+	deliveryWay: number;
+	value: number;
+	title: string;
+	children: React.ReactNode;
+}
+
+const Wrapper: React.FC<IDeliveryWrapper> = ({
+	deliveryWay,
+	value,
+	title,
+	children,
+}) => {
 	return (
 		<>
 			{deliveryWay !== value ? (
@@ -35,13 +49,17 @@ const Wrapper = ({ deliveryWay, value, title, children }) => {
 
 interface IDeliveryWay {
 	city: { title: string; ref: string };
-	deliveryWay: string;
+	deliveryWay: number;
 }
 
 type TReception = {
 	day: string;
 	hours: string;
 };
+
+interface IMap {
+	[key: string]: string | undefined;
+}
 
 const DepartmentDetails = styled.div`
 	display: flex;
@@ -63,8 +81,8 @@ const ReceptionItem = styled.div`
 `;
 
 const NovaPoshta: React.FC<IDeliveryWay> = ({ city, deliveryWay }) => {
-	const [data, setData] = useState([]);
-	const [selected, setSelected] = useState('');
+	const [data, setData] = useState<IAddress[]>([]);
+	const [selected, setSelected] = useState<string>('');
 
 	const { isLoaded } = useLoadScript({
 		googleMapsApiKey: 'AIzaSyAyJQV-jP5bxTFg5AFE5MC0pQyZXGUoWcs',
@@ -72,17 +90,18 @@ const NovaPoshta: React.FC<IDeliveryWay> = ({ city, deliveryWay }) => {
 
 	const devDep = useTypedSelector((state) => state.order);
 
-	const selectedInfo = useMemo(
-		() => data.find((item) => item.Ref === selected),
-		[selected, data]
-	);
+	const selectedInfo: IAddress | undefined = useMemo(() => {
+		if (data.length > 0) return data.find((item) => item.Ref === selected);
+	}, [selected, data]);
 
 	const reception = useMemo(() => {
-		const obj = selectedInfo?.Reception;
-		const result: TReception[] = [];
+		const obj: IMap | undefined = selectedInfo?.Reception;
+		const result = [];
 		for (const key in obj) {
 			result.push({ day: key, hours: obj[key] });
 		}
+		console.log(result);
+
 		return result;
 	}, [selectedInfo]);
 
@@ -105,14 +124,13 @@ const NovaPoshta: React.FC<IDeliveryWay> = ({ city, deliveryWay }) => {
 		}
 	}, [selectedInfo]);
 
-	const handleChange = (
-		value: string,
-		option: {
-			value: any;
-			title: any;
-		}
-	) => {
-		setSelected(option.title);
+	type TOption = {
+		value: string;
+		title: string;
+	};
+
+	const handleChange = (value: string, option: any) => {
+		if (typeof option?.title === 'string') setSelected(option.title);
 	};
 
 	return (
@@ -120,8 +138,7 @@ const NovaPoshta: React.FC<IDeliveryWay> = ({ city, deliveryWay }) => {
 			<Select
 				defaultValue="Оберіть відділення..."
 				style={{ width: '100%' }}
-				onChange={handleChange}
-				// TODO: type all
+				onChange={(value, option) => handleChange(value, option)}
 				options={data?.map((item) => ({
 					value: item.Description,
 					title: item.Ref,

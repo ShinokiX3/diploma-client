@@ -1,14 +1,15 @@
 import { serverApi } from '@/api/serverApi';
+import { IAttributesResponse, IProduct } from '@/types/product.interface';
 
 const PRODUCT = '/products';
 
-export interface IProduct {
-	email: string;
-	password: string;
-	name: string;
-	joindate: Date;
-	phone: string;
-}
+// export interface IProduct {
+// 	email: string;
+// 	password: string;
+// 	name: string;
+// 	joindate: Date;
+// 	phone: string;
+// }
 
 export const ProductService = {
 	async getAllProducts() {
@@ -31,12 +32,17 @@ export const ProductService = {
 
 	async getProductById({ id }: { id: string }) {
 		try {
-			const { data } = await serverApi.post<any>(`${PRODUCT}/id`, {
-				id,
-			});
+			const { data } = await serverApi.post<[IProduct, IAttributesResponse]>(
+				`${PRODUCT}/id`,
+				{
+					id,
+				}
+			);
 
 			return data;
-		} catch (error) {}
+		} catch (error) {
+			return [];
+		}
 	},
 
 	async getProductsByCategory({ id }: { id: string }) {
@@ -54,7 +60,7 @@ export const ProductService = {
 
 	async getProductsPreview() {
 		try {
-			const { data } = await serverApi.get<any>(`${PRODUCT}/preview`);
+			const { data } = await serverApi.get<IProduct[][]>(`${PRODUCT}/preview`);
 
 			return data;
 		} catch (error) {}

@@ -7,6 +7,7 @@ const Wrapper = styled.div``;
 
 const Order = () => {
 	const { items } = useTypedSelector((state) => state.cart);
+	console.log(items);
 
 	return (
 		<Wrapper>
@@ -54,7 +55,7 @@ const Order = () => {
 								<div>
 									<p style={{ color: 'grey', marginBottom: '5px' }}>Ціна</p>
 									<div>
-										{item.rrp ? <del>{item.rrp.raw}</del> : null}
+										{item.rrp ? <del>{item.rrp}</del> : null}
 										<p style={{ fontSize: '12pt', fontWeight: 'bold' }}>
 											{item?.price?.value + ' ₴' || 'Sold'}
 										</p>

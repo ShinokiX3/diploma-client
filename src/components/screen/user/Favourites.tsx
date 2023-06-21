@@ -6,6 +6,8 @@ import CardLoader from '@/components/ui/card/CardLoader';
 import { ProductService } from '@/services/Server/ServerProduct';
 import styled from 'styled-components';
 import { Empty } from 'antd';
+import { IUser } from '@/store/user/user.types';
+import { IProduct } from '@/types/product.interface';
 
 const FavouritesWrapper = styled.div`
 	display: flex;
@@ -18,16 +20,16 @@ const FavouritesWrapper = styled.div`
 `;
 
 interface IFavourites {
-	user: any;
+	user: IUser;
 }
 
 const Favourites: React.FC<IFavourites> = ({ user }) => {
 	const [loading, setLoading] = useState(false);
-	const [products, setProducts] = useState([]);
+	const [products, setProducts] = useState<IProduct[]>([]);
 
 	useEffect(() => {
 		(async () => {
-			if (JSON.stringify(user) === '{}') return false;
+			if (user.name === '') return false;
 			setLoading(true);
 
 			const favourites = user.favourites?.filter(

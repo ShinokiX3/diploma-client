@@ -14,6 +14,7 @@ const initialState: IOrderInitialState = {
 		title: '',
 		ref: '',
 	},
+	products: [],
 };
 
 export const orderSlice = createSlice({

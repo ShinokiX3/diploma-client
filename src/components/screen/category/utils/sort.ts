@@ -1,4 +1,14 @@
-export default function sortByValue(data: any, value: string) {
+import { TFilter } from '@/store/product/product.types';
+import { IProduct } from '@/types/product.interface';
+
+type TFilterAdditional = { strength: string[]; capacity: string[] };
+
+type TData = IProduct & TFilter & TFilterAdditional;
+
+export default function sortByValue(
+	data: TData[],
+	value: string
+): TData[] | null {
 	switch (value) {
 		case 'by_title_a':
 			return data.sort((a, b) => {
@@ -44,6 +54,6 @@ export default function sortByValue(data: any, value: string) {
 			});
 
 		default:
-			return -1;
+			return null;
 	}
 }

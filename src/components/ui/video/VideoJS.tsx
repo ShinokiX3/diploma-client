@@ -1,10 +1,26 @@
 import React from 'react';
 import videojs from 'video.js';
+import Player from 'video.js/dist/types/player';
 import 'video.js/dist/video-js.css';
 
-export const VideoJS = (props) => {
-	const videoRef = React.useRef(null);
-	const playerRef = React.useRef(null);
+export interface IVideoJSProps {
+	styles: any;
+	options: {
+		autoplay: boolean;
+		controls: boolean;
+		responsive: boolean;
+		fluid: boolean;
+		sources: Array<{
+			src: string;
+			type: string;
+		}>;
+	};
+	onReady: Function;
+}
+
+export const VideoJS = (props: IVideoJSProps) => {
+	const videoRef = React.useRef<any>();
+	const playerRef = React.useRef<Player | null>();
 	const { options, onReady } = props;
 
 	React.useEffect(() => {

@@ -23,7 +23,7 @@ export const cartSlice = createSlice({
 			if (!isExist)
 				state.items.push({ ...action.payload, id: state.items.length });
 		},
-		removeFromCart: (state, action: PayloadAction<{ id: number }>) => {
+		removeFromCart: (state, action: PayloadAction<{ id: string }>) => {
 			state.items = state.items.filter((item) => item.id !== action.payload.id);
 		},
 		// IChangeQuantityPayload

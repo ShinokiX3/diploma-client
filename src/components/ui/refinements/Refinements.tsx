@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { IRefinements } from '@/types/refinements.interface';
 import { Select } from 'antd';
 import styled from 'styled-components';
 import { useActions } from '@/hooks/useActions';
 
 interface ICRefinements {
-	data: IRefinements;
+	data: any;
 }
 
 const Wrapper = styled.div`
@@ -87,7 +86,7 @@ const RefiWrapper = styled.div`
 	}
 `;
 
-const attributesUA = {
+const attributesUA: { [key: string]: string } = {
 	brand: 'Бренд',
 	kind: 'Вид',
 	manufacturer: 'Виробник',
@@ -135,7 +134,7 @@ const Refinements: React.FC<ICRefinements> = ({ data }) => {
 									handleSelect(key, selectValue);
 								}}
 							>
-								{data[key].map((attribute) => (
+								{data[key].map((attribute: { _id: string; value: string }) => (
 									<Select.Option key={attribute._id} value={attribute._id}>
 										{attribute.value}
 									</Select.Option>

@@ -1,11 +1,10 @@
 import MetaLayout from '@/components/layout/MetaLayout';
 import Home from '@/components/screen/home/Home';
 import { ProductService } from '@/services/Server/ServerProduct';
+import { IProduct } from '@/types/product.interface';
 import { GetStaticProps } from 'next/types';
 
-const HomePage = ({ data }) => {
-	console.log(data);
-
+const HomePage: React.FC<{ data: IProduct[][] }> = ({ data }) => {
 	return (
 		<MetaLayout title="Main Page" description="Main page for sales">
 			<Home data={data} />

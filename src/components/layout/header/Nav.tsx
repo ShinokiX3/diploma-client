@@ -26,7 +26,7 @@ const Nav = () => {
 
 	return (
 		<Navigation>
-			{Object.keys(user).length ? <Username>{user.name}</Username> : <></>}
+			{Object.keys(user).length ? <Username>{user?.name}</Username> : <></>}
 			<Dropdown
 				placement="bottomRight"
 				dropdownRender={() => <Cart />}

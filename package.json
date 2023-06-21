@@ -38,6 +38,7 @@
     "videojs": "^1.0.0"
   },
   "devDependencies": {
+    "@types/js-sha1": "^0.6.0",
     "@types/styled-components": "^5.1.26",
     "video.js": "^8.3.0"
   }

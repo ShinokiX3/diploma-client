@@ -94,10 +94,30 @@ const VideosPreview = styled.div`
 	gap: 10px;
 `;
 
-const VideoReviews = ({ data }) => {
+// TODO: move to product's types file
+
+interface IVideoReviews {
+	data: {
+		product: {
+			videos_additional: [
+				{
+					id: string;
+					video_previews: string;
+					video_url: string;
+					profile_image_url: string;
+					video_image_url: string;
+					title: string;
+					public_name: string;
+				}
+			];
+		};
+	};
+}
+
+const VideoReviews: React.FC<IVideoReviews> = ({ data }) => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [activeVideo, setActiveVideo] = useState(0);
-	const videosRef = useRef([]);
+	const videosRef = useRef<any>();
 	const playerRef = React.useRef(null);
 
 	useEffect(() => {
@@ -119,7 +139,7 @@ const VideoReviews = ({ data }) => {
 		setIsModalOpen(false);
 	};
 
-	const handlePlayerReady = (player) => {
+	const handlePlayerReady = (player: any) => {
 		playerRef.current = player;
 
 		player.on('waiting', () => {});

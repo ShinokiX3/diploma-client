@@ -2,10 +2,22 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { IUser, IUserInitialState } from './user.types';
 
+const initialUser = {
+	email: '',
+	favourites: [],
+	joindate: '',
+	name: '',
+	password: '',
+	phone: '',
+	role: [''],
+	__v: 0,
+	_id: '',
+};
+
 const initialState: IUserInitialState = {
 	upperDrawer: false,
 	token: '',
-	user: {},
+	user: { ...initialUser },
 };
 
 export const userSlice = createSlice({
@@ -20,7 +32,7 @@ export const userSlice = createSlice({
 
 		quit: (state, _) => {
 			state.token = '';
-			state.user = {};
+			state.user = initialUser;
 		},
 
 		pushFavourite: (state, action: PayloadAction<{ id: string }>) => {

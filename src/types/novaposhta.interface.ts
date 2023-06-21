@@ -29,7 +29,13 @@ export interface IAddress {
 	Delivery7: string;
 	SpecialCashCheck: number;
 	Warehouse: string;
+	Reception: TReception;
 }
+
+type TReception = {
+	day: string;
+	hours: string;
+};
 
 export interface ICityData {
 	TotalCount: number;

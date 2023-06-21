@@ -93,7 +93,7 @@ const Category: React.FC<ICategory> = ({ data, categoryId }) => {
 
 	const handleChange = (value: string) => {
 		const sorted = sortByValue(data, value);
-		setCategoryResults([...sorted]);
+		if (sorted !== null) setCategoryResults([...sorted]);
 	};
 
 	return (
