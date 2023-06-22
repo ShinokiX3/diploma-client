@@ -74,7 +74,7 @@ const Card: React.FC<ICard> = ({ product }) => {
 			asin: _id,
 			title: title,
 			// TODO: To env
-			image: { link: `http://localhost:3000/${product.picture}` },
+			image: { link: `https://diploma-server.vercel.app/${product.picture}` },
 			price: { value: discount ? cost - discount * cost : cost },
 			rrp: '',
 			quantity: 1,
@@ -122,8 +122,10 @@ const Card: React.FC<ICard> = ({ product }) => {
 								height={0}
 								style={{ width: 'auto', height: '140px' }}
 								alt="example"
-								loader={() => `http://localhost:3000/${product.picture}`}
-								src={`http://localhost:3000/${product.picture}`}
+								loader={() =>
+									`https://diploma-server.vercel.app/${product.picture}`
+								}
+								src={`https://diploma-server.vercel.app/${product.picture}`}
 							/>
 						</Link>
 					</ImageWrapper>

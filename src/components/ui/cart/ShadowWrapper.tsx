@@ -8,4 +8,10 @@ export const ShadowWrapper = styled.div`
 	width: 400px;
 	max-height: 70vh;
 	overflow-y: auto;
+
+	@media (max-width: 450px) {
+		& {
+			width: 250px;
+		}
+	}
 `;

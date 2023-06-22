@@ -124,8 +124,7 @@ const Orders: React.FC<IOrders> = ({ user }) => {
 		);
 	}
 
-	if (JSON.stringify(user) === '{}')
-		return <Empty description="Need to login" />;
+	if (user.name === '') return <Empty description="Need to login" />;
 
 	return (
 		<>

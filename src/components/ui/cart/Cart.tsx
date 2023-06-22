@@ -23,6 +23,12 @@ const Product = styled.div`
 	display: flex;
 	border-bottom: 1px solid lightgrey;
 	padding: 10px 0px;
+
+	@media (max-width: 450px) {
+		& {
+			flex-direction: column;
+		}
+	}
 `;
 
 const Offer = styled.div`

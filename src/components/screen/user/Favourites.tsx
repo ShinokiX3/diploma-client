@@ -50,8 +50,7 @@ const Favourites: React.FC<IFavourites> = ({ user }) => {
 		})();
 	}, [user]);
 
-	if (JSON.stringify(user) === '{}')
-		return <Empty description="Need to login" />;
+	if (user.name === '') return <Empty description="Need to login" />;
 
 	return (
 		<>

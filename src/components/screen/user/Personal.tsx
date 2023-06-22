@@ -36,8 +36,7 @@ interface IPersonal {
 }
 
 const Personal: React.FC<IPersonal> = ({ user }) => {
-	if (JSON.stringify(user) === '{}')
-		return <Empty description="Need to login" />;
+	if (user.name === '') return <Empty description="Need to login" />;
 
 	return (
 		<>

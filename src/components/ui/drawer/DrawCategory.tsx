@@ -41,6 +41,14 @@ const DrawLinkWrapper = styled.div`
 	}
 `;
 
+const SocialsWrapper = styled.div`
+	display: flex;
+
+	svg {
+		color: black;
+	}
+`;
+
 const DrawLink = styled.div`
 	width: 100%;
 	font-size: var(--fs-regular);
@@ -128,33 +136,33 @@ const DrawCategory: React.FC<IDrawCategory> = ({ categories }) => {
 					</Link>
 				</DrawLinkWrapper>
 				<Line />
-				<DrawLinkWrapper>
-					<Link href={`/category/${''}`} style={{ width: '50%' }}>
+				<SocialsWrapper>
+					<Link href={`/${''}`} style={{ width: '50%' }}>
 						<DrawLink>
 							<GoogleOutlined />
 						</DrawLink>
 					</Link>
-					<Link href={`/category/${''}`} style={{ width: '50%' }}>
+					<Link href={`/${''}`} style={{ width: '50%' }}>
 						<DrawLink>
 							<YoutubeOutlined />
 						</DrawLink>
 					</Link>
-					<Link href={`/category/${''}`} style={{ width: '50%' }}>
+					<Link href={`/${''}`} style={{ width: '50%' }}>
 						<DrawLink>
 							<FacebookOutlined />
 						</DrawLink>
 					</Link>
-					<Link href={`/category/${''}`} style={{ width: '50%' }}>
+					<Link href={`/${''}`} style={{ width: '50%' }}>
 						<DrawLink>
 							<TwitterOutlined />
 						</DrawLink>
 					</Link>
-					<Link href={`/category/${''}`} style={{ width: '60px' }}>
+					<Link href={`/${''}`} style={{ width: '60px' }}>
 						<DrawLink>
 							<InstagramOutlined />
 						</DrawLink>
 					</Link>
-				</DrawLinkWrapper>
+				</SocialsWrapper>
 			</Drawer>
 		</>
 	);

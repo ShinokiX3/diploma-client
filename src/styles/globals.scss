@@ -87,3 +87,19 @@ body {
 .swiper-button-next {
 	margin-right: 17px;
 }
+
+.ant-drawer-content-wrapper {
+	@media (max-width: 420px) {
+		& {
+			width: 310px !important;
+		}
+	}
+}
+
+.ant-dropdown {
+	@media (max-width: 450px) {
+		& {
+			width: 310px !important;
+		}
+	}
+}
