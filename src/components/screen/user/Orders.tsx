@@ -163,7 +163,7 @@ const Orders: React.FC<IOrders> = ({ user }) => {
 									height={'auto'}
 									key={product.id}
 									alt="ordered-product"
-									src={`http://localhost:3000/${
+									src={`https://diploma-server.vercel.app/${
 										products.find((item) => item._id === product?.id)?.picture
 									}`}
 								/>
