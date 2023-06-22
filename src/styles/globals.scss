@@ -96,10 +96,12 @@ body {
 	}
 }
 
-.ant-dropdown {
-	@media (max-width: 450px) {
-		& {
-			width: 310px !important;
-		}
-	}
-}
+// .ant-dropdown {
+// 	@media (max-width: 450px) {
+// 		& {
+// 			width: 310px !important;
+// 			display: flex;
+// 			justify-content: flex-end;
+// 		}
+// 	}
+// }
