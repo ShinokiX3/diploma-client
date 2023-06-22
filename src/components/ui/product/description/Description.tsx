@@ -83,7 +83,7 @@ const Description: React.FC<IDescripton> = ({ data }) => {
 		addToCart({
 			asin: _id,
 			title: title,
-			image: { link: `http://localhost:3000/${picture}` },
+			image: { link: `https://diploma-server.vercel.app/${picture}` },
 			price: { value: discount ? cost - discount * cost : cost },
 			rrp: '',
 			quantity: 1,
