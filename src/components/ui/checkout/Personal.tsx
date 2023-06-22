@@ -1,4 +1,5 @@
 import { useActions } from '@/hooks/useActions';
+import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { Input, Space } from 'antd';
 import React, { useState } from 'react';
 import styled from 'styled-components';
@@ -20,6 +21,7 @@ const SecondWrapp = styled.div`
 
 const Personal = () => {
 	const { setName, setLastname, setPhone } = useActions();
+	const orderInfo = useTypedSelector((state) => state.order);
 
 	return (
 		<Wrapper>
@@ -28,17 +30,20 @@ const Personal = () => {
 				<Input
 					placeholder="Ім'я..."
 					allowClear
+					value={orderInfo.name}
 					onChange={(e) => setName({ name: e.target.value })}
 				/>
 				<Input
 					placeholder="Прізвище..."
 					allowClear
+					value={orderInfo.lastname}
 					onChange={(e) => setLastname({ lastname: e.target.value })}
 				/>
 			</SecondWrapp>
 			<Input
 				placeholder="Номер телефона..."
 				allowClear
+				value={orderInfo.phone}
 				onChange={(e) => setPhone({ phone: e.target.value })}
 			/>
 		</Wrapper>

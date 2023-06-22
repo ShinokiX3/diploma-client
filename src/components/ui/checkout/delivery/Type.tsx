@@ -100,8 +100,6 @@ const NovaPoshta: React.FC<IDeliveryWay> = ({ city, deliveryWay }) => {
 		for (const key in obj) {
 			result.push({ day: key, hours: obj[key] });
 		}
-		console.log(result);
-
 		return result;
 	}, [selectedInfo]);
 
@@ -111,7 +109,6 @@ const NovaPoshta: React.FC<IDeliveryWay> = ({ city, deliveryWay }) => {
 		(async () => {
 			const response = await NovaPoshtaApi.searchDepartment(city.ref);
 			setData(response.data);
-			console.log(response);
 		})();
 	}, [city]);
 
@@ -137,10 +134,10 @@ const NovaPoshta: React.FC<IDeliveryWay> = ({ city, deliveryWay }) => {
 		<Wrapper deliveryWay={deliveryWay} value={1} title="Нова Пошта">
 			<Select
 				defaultValue="Оберіть відділення..."
-				style={{ width: '100%' }}
+				style={{ width: '100%', maxWidth: '' }}
 				onChange={(value, option) => handleChange(value, option)}
 				options={data?.map((item) => ({
-					value: item.Description,
+					value: item.Description.substring(0, 35) + '..',
 					title: item.Ref,
 				}))}
 			/>
@@ -168,7 +165,7 @@ const NovaPoshta: React.FC<IDeliveryWay> = ({ city, deliveryWay }) => {
 const UkrPoshta: React.FC<IDeliveryWay> = ({ city, deliveryWay }) => {
 	return (
 		<Wrapper deliveryWay={deliveryWay} value={2} title="Укрпошта">
-			Укрпошта
+			In development...
 		</Wrapper>
 	);
 };
