@@ -5,6 +5,15 @@ import Image from 'next/image';
 
 const Wrapper = styled.div``;
 
+const ItemWrapper = styled.div`
+	display: flex;
+	border-bottom: 1px solid lightgray;
+
+	@media (max-width: 500px) {
+		flex-direction: column-reverse;
+	}
+`;
+
 const Order = () => {
 	const { items } = useTypedSelector((state) => state.cart);
 	console.log(items);
@@ -16,10 +25,7 @@ const Order = () => {
 			{/* Rewrite to grid */}
 			{items &&
 				items.map((item) => (
-					<div
-						key={item.asin}
-						style={{ display: 'flex', borderBottom: '1px solid lightgray' }}
-					>
+					<ItemWrapper key={item.asin}>
 						<div
 							className="ju-al-center"
 							style={{ minWidth: '140px', padding: '5px 10px' }}
@@ -77,7 +83,7 @@ const Order = () => {
 								</p>
 							</div>
 						</div>
-					</div>
+					</ItemWrapper>
 				))}
 		</Wrapper>
 	);

@@ -1,14 +1,30 @@
 import { useActions } from '@/hooks/useActions';
 import { Input, Space } from 'antd';
 import React, { useState } from 'react';
+import styled from 'styled-components';
+
+const Wrapper = styled.div`
+	display: flex;
+	gap: 10px;
+	flex-direction: column;
+`;
+
+const SecondWrapp = styled.div`
+	display: flex;
+	gap: 10px;
+
+	@media (max-width: 500px) {
+		flex-direction: column;
+	}
+`;
 
 const Personal = () => {
 	const { setName, setLastname, setPhone } = useActions();
 
 	return (
-		<div style={{ display: 'flex', gap: '10px', flexDirection: 'column' }}>
+		<Wrapper>
 			<p style={{ fontSize: '16pt' }}>Ваша персональна інформація:</p>
-			<div style={{ display: 'flex', gap: '10px' }}>
+			<SecondWrapp>
 				<Input
 					placeholder="Ім'я..."
 					allowClear
@@ -19,13 +35,13 @@ const Personal = () => {
 					allowClear
 					onChange={(e) => setLastname({ lastname: e.target.value })}
 				/>
-			</div>
+			</SecondWrapp>
 			<Input
 				placeholder="Номер телефона..."
 				allowClear
 				onChange={(e) => setPhone({ phone: e.target.value })}
 			/>
-		</div>
+		</Wrapper>
 	);
 };
 

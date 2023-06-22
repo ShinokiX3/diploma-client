@@ -153,13 +153,13 @@ const NovaPoshta: React.FC<IDeliveryWay> = ({ city, deliveryWay }) => {
 						</ReceptionItem>
 					))}
 				</ReceptionsWrapper>
-				<div>
+				{/* <div>
 					<GoogleMap
 						zoom={10}
 						center={{ lat: 44, lng: -80 }}
 						mapContainerStyle={{ width: '250px', height: '250px' }}
 					/>
-				</div>
+				</div> */}
 			</DepartmentDetails>
 		</Wrapper>
 	);
