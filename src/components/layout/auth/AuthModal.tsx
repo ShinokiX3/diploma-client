@@ -13,7 +13,7 @@ const AuthModal: React.FC<IAuthModal> = ({ shouldShow, setShouldShow }) => {
 
 	return (
 		<Modal
-			title="Authorization"
+			title="Авторизація"
 			centered
 			open={shouldShow}
 			onCancel={() => setShouldShow(false)}
@@ -22,13 +22,13 @@ const AuthModal: React.FC<IAuthModal> = ({ shouldShow, setShouldShow }) => {
 			{authType === 'login' ? (
 				<LoginForm>
 					<Button type="link" onClick={() => setAuthType('register')}>
-						Register instead
+						Зареєструватись
 					</Button>
 				</LoginForm>
 			) : (
 				<RegisterForm>
 					<Button type="link" onClick={() => setAuthType('login')}>
-						Login instead
+						Увійти
 					</Button>
 				</RegisterForm>
 			)}

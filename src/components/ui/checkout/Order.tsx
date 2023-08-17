@@ -21,8 +21,6 @@ const Order = () => {
 	return (
 		<Wrapper>
 			<p style={{ fontSize: '16pt' }}>Замовлення:</p>
-			{/* TODO: Create special component for this */}
-			{/* Rewrite to grid */}
 			{items &&
 				items.map((item) => (
 					<ItemWrapper key={item.asin}>
@@ -42,7 +40,6 @@ const Order = () => {
 						<div
 							style={{
 								display: 'grid',
-								// justifyContent: 'space-between',
 								gridTemplateColumns: '3fr 1fr 1fr 1fr',
 								gap: '25px',
 								paddingTop: '20px',

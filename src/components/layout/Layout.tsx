@@ -4,6 +4,9 @@ import Header from './header/Header';
 import DrawCategory from '../ui/drawer/DrawCategory';
 import { CategoryService } from '@/services/Server/ServerCategory';
 import styled from 'styled-components';
+import { Spin } from 'antd';
+
+import NextProgress from 'nextjs-progressbar';
 
 interface ILayout {
 	children?: React.ReactNode;
@@ -17,11 +20,17 @@ const Section = styled.section`
 	display: flex;
 `;
 
-// TODO: change categories variable to object like {data, changeData, loading, error} or set 'em to redux storage
+const LoaderWrapper = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100vw;
+	height: 100vh;
+`;
 
 const Layout: React.FC<ILayout> = ({ children }) => {
 	const [categories, setCategories] = useState<any>(null);
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		setLoading(true);
@@ -30,16 +39,31 @@ const Layout: React.FC<ILayout> = ({ children }) => {
 			if (response) {
 				setCategories(response);
 			} else setCategories([]);
-			setLoading(false);
 		})();
 	}, []);
 
-	if (loading) return <div>Loading...</div>;
+	useEffect(() => {
+		if (categories) setLoading(false);
+	}, [categories]);
 
-	// TODO: create recurcive function for fetching data
+	if (loading)
+		return (
+			<LoaderWrapper>
+				<Spin size="large" />
+			</LoaderWrapper>
+		);
 
 	return (
 		<Main>
+			<NextProgress
+				color="#a29fff"
+				startPosition={0.3}
+				stopDelayMs={200}
+				height={3}
+				options={{
+					showSpinner: false,
+				}}
+			/>
 			<Header />
 			<DrawCategory categories={categories} />
 			<Section>{children}</Section>

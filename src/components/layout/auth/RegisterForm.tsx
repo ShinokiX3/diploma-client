@@ -81,12 +81,7 @@ const RegisterForm: React.FC<IRegisterForm> = ({ children }) => {
 			setStatus('');
 		}, 3000);
 
-		return (
-			<Result
-				icon={<SmileOutlined />}
-				title="Great, we successfuly register!"
-			/>
-		);
+		return <Result icon={<SmileOutlined />} title="Вас зареєстровано!" />;
 	}
 
 	if (status === 'error') {
@@ -97,8 +92,8 @@ const RegisterForm: React.FC<IRegisterForm> = ({ children }) => {
 		return (
 			<Result
 				status="error"
-				title="Submission Failed"
-				subTitle="Something goes wrong."
+				title="Помилка реєстрації"
+				subTitle="Щось пішло не так."
 			/>
 		);
 	}
@@ -107,13 +102,13 @@ const RegisterForm: React.FC<IRegisterForm> = ({ children }) => {
 		<Form style={{ display: 'grid', gap: '10px' }}>
 			<Input
 				required
-				placeholder="firstname"
+				placeholder="Ім'я"
 				value={data.firstname}
 				onChange={(e) => setData({ ...data, firstname: e.target.value })}
 			/>
 			<Input
 				required
-				placeholder="lastname"
+				placeholder="Прізвище"
 				value={data.lastname}
 				onChange={(e) => setData({ ...data, lastname: e.target.value })}
 			/>
@@ -122,21 +117,21 @@ const RegisterForm: React.FC<IRegisterForm> = ({ children }) => {
 
 			<Input
 				required
-				placeholder="phone number"
+				placeholder="Номер телефону"
 				type="phonenumber"
 				value={data.phone}
 				onChange={(e) => setData({ ...data, phone: e.target.value })}
 			/>
 			<Input
 				required
-				placeholder="email"
+				placeholder="Email"
 				type="email"
 				value={data.email}
 				onChange={(e) => setData({ ...data, email: e.target.value })}
 			/>
 
 			<DatePicker
-				placeholder="birthdate"
+				placeholder="Дата народження"
 				onChange={(_, dateString: string) => {
 					setData({ ...data, birthdate: new Date(dateString) });
 				}}
@@ -146,7 +141,7 @@ const RegisterForm: React.FC<IRegisterForm> = ({ children }) => {
 
 			<Input
 				required
-				placeholder="password"
+				placeholder="Password"
 				type="password"
 				value={data.password}
 				onChange={(e) => setData({ ...data, password: e.target.value })}
@@ -154,20 +149,20 @@ const RegisterForm: React.FC<IRegisterForm> = ({ children }) => {
 			<Input
 				required
 				type="password"
-				placeholder="repeat password"
+				placeholder="Repeat password"
 				value={data.repeatPassword}
 				onChange={(e) => setData({ ...data, repeatPassword: e.target.value })}
 			/>
 
 			{!validePassword && data.password ? (
-				<ValidP>Passwords do not match</ValidP>
+				<ValidP>Паролі не співпадають</ValidP>
 			) : (
 				<></>
 			)}
 
 			<Controls>
 				{children}
-				<Button onClick={signup()}>Register</Button>
+				<Button onClick={signup()}>Зареєструватись</Button>
 			</Controls>
 		</Form>
 	);

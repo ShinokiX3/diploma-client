@@ -9,6 +9,7 @@ import styled from 'styled-components';
 import Personal from './Personal';
 import Favourites from './Favourites';
 import Orders from './Orders';
+import { useRouter } from 'next/router';
 
 const Wrapper = styled.div`
 	width: 100%;
@@ -81,6 +82,8 @@ const User = () => {
 		Number(window?.location?.search?.split('=')[1]) || 1
 	);
 
+	const route = useRouter();
+
 	const user = useTypedSelector((state) => state.user.user);
 
 	const handleActive = (page: number) => {
@@ -93,7 +96,10 @@ const User = () => {
 				{controlItems.map((control, index) => (
 					<ControlItem
 						key={control.title}
-						onClick={() => handleActive(index + 1)}
+						onClick={() => {
+							handleActive(index + 1);
+							route.push(`/user?window=${index + 1}`);
+						}}
 						active={active === index + 1}
 					>
 						{control.ico} {control.title}

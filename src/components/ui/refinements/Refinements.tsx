@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Select } from 'antd';
+import { Select, Spin } from 'antd';
 import styled from 'styled-components';
 import { useActions } from '@/hooks/useActions';
+import Spinner from '../common/Spinner';
 
 interface ICRefinements {
 	data: any;
@@ -72,7 +73,7 @@ const RefiWrapper = styled.div`
 	p {
 		font-size: 12pt;
 		margin-bottom: 4px;
-		color: gray;
+		color: black;
 	}
 
 	.ant-select {
@@ -86,6 +87,14 @@ const RefiWrapper = styled.div`
 	}
 `;
 
+const LoaderWrapper = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 50vh;
+`;
+
 const attributesUA: { [key: string]: string } = {
 	brand: 'Бренд',
 	kind: 'Вид',
@@ -95,7 +104,7 @@ const attributesUA: { [key: string]: string } = {
 	strengths: 'Міцність (Abv)',
 };
 
-const Refinements: React.FC<ICRefinements> = ({ data }) => {
+const Refinements: React.FC<ICRefinements> = ({ data = null }) => {
 	const [shouldShow, setShouldShow] = useState(false);
 	const [value, setValue] = useState({
 		brand: [],
@@ -143,7 +152,9 @@ const Refinements: React.FC<ICRefinements> = ({ data }) => {
 						</RefiWrapper>
 					))
 				) : (
-					<div>Loading...</div>
+					<LoaderWrapper>
+						<Spinner />
+					</LoaderWrapper>
 				)}
 			</ItemsWrapper>
 			<ShowRefinements onClick={handleRefinements}>Фільтрація</ShowRefinements>

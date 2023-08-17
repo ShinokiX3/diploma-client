@@ -188,12 +188,10 @@ const Type = () => {
 		>
 			<Space direction="vertical" style={{ width: '100%' }}>
 				<NovaPoshta {...settings} />
-				<UkrPoshta {...settings} />
+				{/* <UkrPoshta {...settings} /> */}
 			</Space>
 		</Radio.Group>
 	);
 };
-
-// AIzaSyAyJQV-jP5bxTFg5AFE5MC0pQyZXGUoWcs
 
 export default Type;

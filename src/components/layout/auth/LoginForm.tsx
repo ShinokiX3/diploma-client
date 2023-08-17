@@ -47,9 +47,7 @@ const LoginForm: React.FC<ILoginForm> = ({ children }) => {
 			setStatus('');
 		}, 3000);
 
-		return (
-			<Result icon={<SmileOutlined />} title="Great, we successfuly logged!" />
-		);
+		return <Result icon={<SmileOutlined />} title="Авторизовано!" />;
 	}
 
 	if (status === 'error') {
@@ -60,8 +58,8 @@ const LoginForm: React.FC<ILoginForm> = ({ children }) => {
 		return (
 			<Result
 				status="error"
-				title="Submission Failed"
-				subTitle="Something goes wrong."
+				title="Помилка авторизації"
+				subTitle="Щось пішло не так."
 			/>
 		);
 	}
@@ -69,14 +67,14 @@ const LoginForm: React.FC<ILoginForm> = ({ children }) => {
 	return (
 		<Form style={{ display: 'grid', gap: '10px' }}>
 			<Input
-				placeholder="email"
+				placeholder="Email"
 				type="email"
 				value={email}
 				onChange={(e) => setEmail(e.target.value)}
 			/>
 
 			<Input
-				placeholder="password"
+				placeholder="Password"
 				type="password"
 				value={password}
 				onChange={(e) => setPassword(e.target.value)}
@@ -84,7 +82,7 @@ const LoginForm: React.FC<ILoginForm> = ({ children }) => {
 
 			<Controls>
 				{children}
-				<Button onClick={signin()}>Login</Button>
+				<Button onClick={signin()}>Вхід</Button>
 			</Controls>
 		</Form>
 	);

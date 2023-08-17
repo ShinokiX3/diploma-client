@@ -7,9 +7,12 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { store } from '@/store/store';
 import { persistor } from '@/store/store';
 import { ThemeProvider } from 'styled-components';
+import { useRouter } from 'next/router';
 
 // import light from '@styles/themes/light.scss';
 import Layout from '@/components/layout/Layout';
+import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 
 // TODO: Create a theme switcher, lazy load theme by an ask
 

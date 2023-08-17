@@ -58,14 +58,11 @@ const Favourites: React.FC<IFavourites> = ({ user }) => {
 				<HeartOutlined /> Список бажань
 			</Title>
 			<FavouritesWrapper>
-				{loading ? (
-					user.favourites?.map((fav) => <CardLoader key={fav} />)
-				) : (
-					<></>
-				)}
-				{products.map((product) => (
-					<Card key={product._id} product={product} />
-				))}
+				{loading
+					? user.favourites?.map((fav) => <CardLoader key={fav} />)
+					: products.map((product) => (
+							<Card key={product?._id} product={product} />
+					  ))}
 			</FavouritesWrapper>
 		</>
 	);

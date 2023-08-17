@@ -112,8 +112,8 @@ const Card: React.FC<ICard> = ({ product }) => {
 					<ImageWrapper>
 						<Link
 							href={{
-								pathname: `/product/${product._id}`,
-								query: { title: product.title },
+								pathname: `/product/${product?._id}`,
+								query: { title: product?.title },
 							}}
 							style={{ textDecoration: 'none' }}
 						>

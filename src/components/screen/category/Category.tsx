@@ -77,7 +77,7 @@ const sortVariables = [
 const Category: React.FC<ICategory> = ({ data, categoryId }) => {
 	const [categoryResults, setCategoryResults] = useState(data);
 	const [loading, setLoading] = useState(false);
-	const [refinements, setRefinements] = useState({});
+	const [refinements, setRefinements] = useState<any>(null);
 	const filter = useTypedSelector((state) => state.product.filter);
 
 	useEffect(() => {
