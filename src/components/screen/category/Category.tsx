@@ -89,7 +89,7 @@ const Category: React.FC<ICategory> = ({ data, categoryId }) => {
 
 	useEffect(() => {
 		setCategoryResults(filterByValue(data, filter));
-	}, [filter]);
+	}, [data, filter]);
 
 	const handleChange = (value: string) => {
 		const sorted = sortByValue(data, value);
@@ -118,17 +118,14 @@ const Category: React.FC<ICategory> = ({ data, categoryId }) => {
 					)}
 					{categoryResults.length === 0 ? <Empty description="" /> : <></>}
 				</CardWrapper>
-				<Pagination
-					// current={`categoryResults.pagination?.current_page`}
-					// total={categoryResults.pagination?.total_pages}
-					current={1}
-					total={1}
-					// handler={fetchByParameters}
-					handler={() => {}}
-				/>
+				<Pagination current={1} total={1} handler={() => {}} />
 			</ContentWrapper>
 		</Wrapper>
 	);
 };
 
 export default Category;
+
+// current={`categoryResults.pagination?.current_page`}
+// total={categoryResults.pagination?.total_pages}
+// handler={fetchByParameters}
