@@ -40,7 +40,7 @@ const Promo = () => {
 							width={0}
 							height={0}
 							style={{
-								width: '70%',
+								width: '100%',
 								height: 'auto',
 								maxHeight: '300px',
 								objectFit: 'cover',

@@ -16,7 +16,6 @@ const ItemWrapper = styled.div`
 
 const Order = () => {
 	const { items } = useTypedSelector((state) => state.cart);
-	console.log(items);
 
 	return (
 		<Wrapper>

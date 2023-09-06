@@ -60,6 +60,7 @@ const Eventually = () => {
 
 	const submit = async () => {
 		setLoading(true);
+
 		const data = {
 			name: order.name,
 			lastname: order.lastname,
@@ -70,19 +71,21 @@ const Eventually = () => {
 			products: products,
 		};
 
-		const createdOrder = await UserService.createOrder(data, { id: user._id });
+		const createdOrder = user._id
+			? await UserService.createOrder(data, { id: user._id })
+			: await UserService.createOrder(data, '');
 
-		if (createdOrder.order)
+		if (createdOrder.order || createdOrder.date)
 			router.push(
-				`checkout/success?id=${createdOrder.order._id}&total=${createdOrder.order.total}`
+				`checkout/success?id=${
+					createdOrder.order?._id || createdOrder._id
+				}&total=${createdOrder.order?.total || createdOrder.total}`
 			);
 
 		setLoading(false);
 	};
 
-	if (loading) {
-		return <Spinner />;
-	}
+	if (loading) return <Spinner />;
 
 	return (
 		<Wrapper>

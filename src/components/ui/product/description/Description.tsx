@@ -66,8 +66,6 @@ const Wrapper = styled.div`
 // TODO: typed this function
 
 const Description: React.FC<IDescripton> = ({ data }) => {
-	console.log(data);
-
 	const { items } = useTypedSelector((state) => state.cart);
 	const user = useTypedSelector((state) => state.user.user);
 	const { addToCart, pushFavourite, removeFavourite } = useActions();
@@ -76,9 +74,8 @@ const Description: React.FC<IDescripton> = ({ data }) => {
 
 	const handleToCart = () => {
 		// TODO: Desctructuring object
-		// TODO: Where can i get price?
+		// TODO: Where can we get price?
 		const { _id, title, picture, cost, discount } = data.product;
-		console.log(data);
 
 		addToCart({
 			asin: _id,
@@ -92,7 +89,7 @@ const Description: React.FC<IDescripton> = ({ data }) => {
 	};
 
 	const handleFavourites = async () => {
-		if (JSON.stringify(user) === '{}') console.log('Error');
+		if (JSON.stringify(user) === '{}') console.log('Something wrong...');
 
 		if (user.favourites?.some((item) => item === data.product._id)) {
 			const response = await UserService.removeFavourite(data.product._id);

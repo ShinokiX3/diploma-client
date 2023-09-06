@@ -42,8 +42,6 @@ const SearchHandling = ({
 	if (loading) return <Spinner />;
 	if (data.length === 0) return <Empty />;
 
-	console.log(data);
-
 	return (
 		<Wrapper>
 			{data.map((item) => (
@@ -90,7 +88,7 @@ const Search = ({ styles }: { styles?: Object }) => {
 				else setSearchResults(products);
 
 				setLoading(false);
-			} else console.log('declined');
+			}
 		})();
 	}, [debouncedValue]);
 
@@ -114,7 +112,5 @@ const Search = ({ styles }: { styles?: Object }) => {
 		/>
 	);
 };
-
-// treeData={searchResults}
 
 export default Search;

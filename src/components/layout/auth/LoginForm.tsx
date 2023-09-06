@@ -27,7 +27,6 @@ const LoginForm: React.FC<ILoginForm> = ({ children }) => {
 				setLoading(true);
 
 				const resp = await AuthService.login({ email, password });
-				console.log(resp);
 
 				if (resp?.token) {
 					setStatus('success');

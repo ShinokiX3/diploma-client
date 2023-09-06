@@ -25,7 +25,6 @@ const City = () => {
 			if (debouncedValue) {
 				setLoading(true);
 				const response = await NovaPoshta.searchByTerm(value);
-				console.log(response);
 
 				if (response.data.length > 0) {
 					setCities(response.data);

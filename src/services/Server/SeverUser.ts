@@ -6,7 +6,7 @@ const USER = '/users';
 export const UserService = {
 	// Order
 
-	async createOrder(order: any, user: any) {
+	async createOrder(order: any, user: string | { id: string }) {
 		try {
 			const { data } = await serverApiClient.post<any>(`${USER}/order/create`, {
 				order,
