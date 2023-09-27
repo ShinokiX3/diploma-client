@@ -2,6 +2,14 @@ Server -> https://github.com/ShinokiX3/diploma-server
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Preview
+
+![main](https://github.com/ShinokiX3/diploma-client/assets/68112402/271b2d35-85de-4e47-9c15-3fa68144de21)
+![products](https://github.com/ShinokiX3/diploma-client/assets/68112402/a254f595-d2fd-4486-b096-2053133800b9)
+![product](https://github.com/ShinokiX3/diploma-client/assets/68112402/901de273-e49d-4503-8a34-3b1685065cb2)
+![order](https://github.com/ShinokiX3/diploma-client/assets/68112402/7d60e5a1-1b76-41f4-b5ff-2f7d3807be32)
+![ordered](https://github.com/ShinokiX3/diploma-client/assets/68112402/2d0c80be-06c4-4fc1-95c9-d96b8a808305)
+
 ## Getting Started
 
 First, run the development server:
